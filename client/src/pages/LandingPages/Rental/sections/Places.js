@@ -17,11 +17,9 @@ Coded by www.creative-tim.com
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Icon from "@mui/material/Icon";
 
 // Material Kit 2 PRO React components
 import MKBox from "components/MKBox";
-import MKPagination from "components/MKPagination";
 
 // Images
 
@@ -30,14 +28,7 @@ import vehicle1 from "assets/images/motors.stylemixthemes.com/01-6-255x135.jpg";
 import {useEffect, useState, useRef} from "react";
 
 // Images
-import bg1 from "assets/images/bg.jpg";
-import bg2 from "assets/images/examples/content-1.jpg";
-import bg3 from "assets/images/examples/content-2.jpg";
-import bg4 from "assets/images/examples/content-3.jpg";
-import bg5 from "assets/images/examples/content-4.jpg";
-import bg6 from "assets/images/examples/content-5.jpg";
 import MKTypography from "../../../../components/MKTypography";
-import MKBadge from "../../../../components/MKBadge";
 import VehicleAuctionCard from "../../../../components/VehicleCards/VehicleAuctionCard";
 import VehicleCard from "../../../../components/VehicleCards/VehicleCard";
 
@@ -81,6 +72,8 @@ const Places = () => {
       setAuctionPeople(auctionPeople + 1);
     }
   }, 1000);
+
+  const dateStart = new Date(timeNow);
   
   return (
     <>
@@ -107,7 +100,7 @@ const Places = () => {
                   image={vehicle1}
                   title="MERCEDES-BENZ"
                   vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{timeStart: timeNow, timeDuration: 100000}}
+                  timeData={{timeStart: dateStart, timeDuration: 100000}}
                   topBidPrice={auctionPrice}
                   allBidCount={auctionPeople}
                   action={actionProps}
@@ -120,7 +113,7 @@ const Places = () => {
                   image={vehicle1}
                   title="MERCEDES-BENZ"
                   vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{timeStart: timeNow, timeDuration: 100000}}
+                  timeData={{timeStart: dateStart, timeDuration: 100000}}
                   topBidPrice={auctionPrice}
                   allBidCount={auctionPeople}
                   action={actionProps}
@@ -133,7 +126,7 @@ const Places = () => {
                   image={vehicle1}
                   title="MERCEDES-BENZ"
                   vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{timeStart: timeNow, timeDuration: 100000}}
+                  timeData={{timeStart: dateStart, timeDuration: 100000}}
                   topBidPrice={auctionPrice}
                   allBidCount={auctionPeople}
                   action={actionProps}
@@ -146,7 +139,7 @@ const Places = () => {
                   image={vehicle1}
                   title="MERCEDES-BENZ"
                   vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{timeStart: timeNow, timeDuration: 100000}}
+                  timeData={{timeStart: dateStart, timeDuration: 100000}}
                   topBidPrice={auctionPrice}
                   allBidCount={auctionPeople}
                   action={actionProps}

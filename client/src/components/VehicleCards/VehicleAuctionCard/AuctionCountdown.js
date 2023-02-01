@@ -34,7 +34,7 @@ function AuctionCountdown({timeEnd}){
 }
 
 AuctionCountdown.propTypes = {
-  timeEnd: PropTypes.instanceOf(Date).isRequired
+  timeEnd: PropTypes.number.isRequired
 };
 
 export default AuctionCountdown;

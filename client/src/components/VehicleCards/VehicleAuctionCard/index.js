@@ -7,7 +7,7 @@ import MKBadge from "../../MKBadge";
 
 function VehicleAuctionCard({ image, title, timeData, topBidPrice, allBidCount, vehicleInfo, action }){
 	const { timeStart, timeDuration } = timeData;
-	const timeEnd = timeStart + timeDuration;
+	const timeEnd = Date.parse(timeStart) + timeDuration;
 	const description = <>
 		<AuctionCountdown timeEnd={timeEnd}/>
 		<MKBadge badgeContent={<><PaidIcon />&nbsp;{topBidPrice}</>} color="light" container />
