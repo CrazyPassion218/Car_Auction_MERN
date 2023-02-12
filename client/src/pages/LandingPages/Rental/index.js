@@ -20,7 +20,6 @@ import Card from "@mui/material/Card";
 
 // Material Kit 2 PRO React components
 import MKBox from "components/MKBox";
-import MKTypography from "components/MKTypography";
 
 // Material Kit 2 PRO React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -40,7 +39,7 @@ import footerRoutes from "footer.routes";
 import bgImage from "assets/images/motors.stylemixthemes.com/slider2.jpg";
 
 function Rental() {
-  const brand = <span style={{fontSize: "2.5rem", color: "#9595f7"}}>iAuto</span>;
+  const brand = <span style={{ fontSize: "2.5rem", color: "#9595f7" }}>iAuto</span>;
   return (
     <>
       <DefaultNavbar

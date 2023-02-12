@@ -32,7 +32,7 @@ import MKButton from "components/MKButton";
 
 import AddRoadIcon from "@mui/icons-material/AddRoad";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
 // eslint-disable-next-line react/prop-types
 function VehicleCard({ image, title, description, vehicleInfo, action }) {
@@ -117,7 +117,6 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
     </Card>
   );
 }
-
 
 // Typechecking props for the VehicleCard
 VehicleCard.propTypes = {

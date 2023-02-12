@@ -29,9 +29,6 @@ import Presentation from "./layouts/pages/landing-pages/rental";
 
 // Material Kit 2 PRO React routes
 
-const {NODE_ENV} = process.env;
-console.log(NODE_ENV);
-
 export default function App() {
   const { pathname } = useLocation();
 

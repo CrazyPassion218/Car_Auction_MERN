@@ -13,7 +13,6 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -25,7 +24,7 @@ import MKBox from "components/MKBox";
 
 import vehicle1 from "assets/images/motors.stylemixthemes.com/01-6-255x135.jpg";
 
-import {useEffect, useState, useRef} from "react";
+import { useEffect, useState, useRef } from "react";
 
 // Images
 import MKTypography from "../../../../components/MKTypography";
@@ -67,14 +66,14 @@ const Places = () => {
   const [auctionPeople, setAuctionPeople] = useState(15);
 
   useInterval(() => {
-    if(Date.now() <= timeNow + 100000){
+    if (Date.now() <= timeNow + 100000) {
       setAuctionPrice(auctionPrice + 80);
       setAuctionPeople(auctionPeople + 1);
     }
   }, 1000);
 
   const dateStart = new Date(timeNow);
-  
+
   return (
     <>
       <MKBox component="section" py={1}>
@@ -100,7 +99,7 @@ const Places = () => {
                   image={vehicle1}
                   title="MERCEDES-BENZ"
                   vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{timeStart: dateStart, timeDuration: 100000}}
+                  timeData={{ timeStart: dateStart, timeDuration: 100000 }}
                   topBidPrice={auctionPrice}
                   allBidCount={auctionPeople}
                   action={actionProps}
@@ -113,7 +112,7 @@ const Places = () => {
                   image={vehicle1}
                   title="MERCEDES-BENZ"
                   vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{timeStart: dateStart, timeDuration: 100000}}
+                  timeData={{ timeStart: dateStart, timeDuration: 100000 }}
                   topBidPrice={auctionPrice}
                   allBidCount={auctionPeople}
                   action={actionProps}
@@ -126,7 +125,7 @@ const Places = () => {
                   image={vehicle1}
                   title="MERCEDES-BENZ"
                   vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{timeStart: dateStart, timeDuration: 100000}}
+                  timeData={{ timeStart: dateStart, timeDuration: 100000 }}
                   topBidPrice={auctionPrice}
                   allBidCount={auctionPeople}
                   action={actionProps}
@@ -139,7 +138,7 @@ const Places = () => {
                   image={vehicle1}
                   title="MERCEDES-BENZ"
                   vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{timeStart: dateStart, timeDuration: 100000}}
+                  timeData={{ timeStart: dateStart, timeDuration: 100000 }}
                   topBidPrice={auctionPrice}
                   allBidCount={auctionPeople}
                   action={actionProps}
@@ -206,11 +205,31 @@ const Places = () => {
                 />
               </MKBox>
             </Grid>
+            <Grid item xs={12} md={6} lg={3}>
+              <MKBox mt={3}>
+                <VehicleCard
+                  image={vehicle1}
+                  title="MERCEDES-BENZ"
+                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
+                  action={actionProps1}
+                />
+              </MKBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={3}>
+              <MKBox mt={3}>
+                <VehicleCard
+                  image={vehicle1}
+                  title="MERCEDES-BENZ"
+                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
+                  action={actionProps1}
+                />
+              </MKBox>
+            </Grid>
           </Grid>
         </Container>
       </MKBox>
     </>
   );
-}
+};
 
 export default Places;
