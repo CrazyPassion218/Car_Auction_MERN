@@ -29,7 +29,6 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 import Places from "pages/LandingPages/Rental/sections/Places";
 import Testimonials from "pages/LandingPages/Rental/sections/Testimonials";
 import Faq from "pages/LandingPages/Rental/sections/Faq";
-import Contact from "pages/LandingPages/Rental/sections/Contact";
 
 // Routes
 import routes from "routes";
@@ -45,9 +44,9 @@ function Rental() {
       <DefaultNavbar
         routes={routes}
         action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-pro-react",
-          label: "buy now",
+          type: "internal",
+          route: "/",
+          label: "sign in",
           color: "info",
         }}
         transparent
@@ -55,7 +54,7 @@ function Rental() {
         brand={brand}
       />
       <MKBox
-        minHeight="98vh"
+        minHeight="50vh"
         width="100%"
         sx={{
           backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
@@ -95,7 +94,6 @@ function Rental() {
         <Places />
         <Testimonials />
         <Faq />
-        <Contact />
       </Card>
       <MKBox pt={6} px={1} mt={6}>
         <DefaultFooter content={footerRoutes} />
