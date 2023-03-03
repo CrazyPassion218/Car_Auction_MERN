@@ -40,7 +40,7 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
 };
 
 function AuctionCountdown({ timeEnd }) {
-  return <Countdown date={timeEnd} renderer={renderer} />;
+  return <Countdown date={timeEnd} renderer={renderer}/>;
 }
 
 AuctionCountdown.propTypes = {

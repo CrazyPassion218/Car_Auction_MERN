@@ -1,0 +1,35 @@
+Hi, I am a car dealer and I need classified ads and auction to sell my cars on my website.
+Responsive design is required.
+
+Also need a page where my customers can book time for car service, oil change, car wash or tire change.
+Basic car's data will be collected through an API from state's official page, for example, car year, model, diesel, petrol or electric, first time registration date.
+I would require an expenses system where I can enter the price to buy the car and als the price to sell to see how much I am earning. Should be a filed for other expenses as well, like if i fix the brakes for 1000,
+
+Admin panel
+- Add a new car listing, either auction or normal classfied fix price.
+- Register a new customer or company. Customer can signup on his own as well.
+- Fill online contract form to sell or buy. Will be filled step by step. I can provide the form copy.
+- Manage bids
+
+I have attached some screenshot of the kind of design like
+I want latest possible internet language. Like reactjs or vuejs
+
+Love this template, but it is for wordpress and I hate wordpress.
+
+안녕하세요, 저는 자동차 딜러이고 내 웹사이트에서 내 자동차를 판매하기 위해 분류된 광고와 경매가 필요합니다.
+반응형 디자인이 필요합니다.
+
+또한 고객이 자동차 서비스, 오일 교환, 세차 또는 타이어 교환 시간을 예약할 수 있는 페이지가 필요합니다.
+기본 자동차 데이터는 주 공식 페이지에서 API를 통해 수집됩니다(예: 자동차 연도, 모델, 디젤, 휘발유 또는 전기, 최초 등록 날짜).
+차를 사기 위한 가격과 내가 얼마나 벌고 있는지 보기 위해 판매할 가격을 입력할 수 있는 비용 시스템이 필요합니다. 브레이크를 1000으로 고치면 다른 비용도 청구해야 합니다.
+
+관리자 패널
+- 경매 또는 일반 분류 수정 가격 중 하나인 새 자동차 목록을 추가합니다.
+- 새로운 고객 또는 회사를 등록합니다. 고객이 직접 가입할 수도 있습니다.
+- 온라인 계약 양식을 작성하여 판매 또는 구매하십시오. 차근차근 채워나갈 예정입니다. 양식 사본을 제공할 수 있습니다.
+- 입찰 관리
+
+다음과 같은 디자인의 스크린샷을 첨부했습니다.
+가능한 최신 인터넷 언어를 원합니다. reactjs 또는 vuejs처럼
+
+이 템플릿은 마음에 들지만 워드프레스용이고 저는 워드프레스가 싫습니다.

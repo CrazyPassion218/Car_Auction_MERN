@@ -15,7 +15,7 @@ Coded by www.creative-tim.com
 
 // react-router-dom components
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
 // @mui material components
 import Card from "@mui/material/Card";
 import Checkbox from "@mui/material/Checkbox";
@@ -25,16 +25,52 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
-
+import { create } from "api/user";
 // Authentication layout components
-import CoverLayout from "pages/Authentication/components/CoverLayout";
-
+import BasicLayout from "pages/Authentication/components/BasicLayout";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Icon from "@material-ui/core/Icon";
 // Images
-import bgImage from "assets/images/bg-sign-up-cover.jpeg";
+import bgImage from "assets/images/motors.stylemixthemes.com/slider2.jpg";
 
 function Cover() {
+  const [values, setValues] = useState({
+    name: "",
+    password: "",
+    email: "",
+    open: false,
+    error: "",
+    policy: false,
+  });
+
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+  const clickSubmit = () => {
+    if(values.policy){
+      const user = {
+        name: values.name || undefined,
+        email: values.email || undefined,
+        password: values.password || undefined,
+      };
+      create(user).then((data) => {
+        if (data.error) {
+          setValues({ ...values, error: data.error });
+        } else {
+          setValues({ ...values, error: "", open: true });
+        }
+      });
+    }
+    else{
+      setValues({ ...values, error: 'You must follow our policy!' });
+    }
+  };
   return (
-    <CoverLayout image={bgImage}>
+    <BasicLayout image={bgImage}>
       <Card>
         <MKBox
           variant="gradient"
@@ -57,16 +93,24 @@ function Cover() {
         <MKBox p={3}>
           <MKBox component="form" role="form">
             <MKBox mb={2}>
-              <MKInput type="text" label="Name" fullWidth />
+              <MKInput type="text" label="Name" fullWidth onChange={handleChange("name")}/>
             </MKBox>
             <MKBox mb={2}>
-              <MKInput type="email" label="Email" fullWidth />
+              <MKInput type="email" label="Email" fullWidth onChange={handleChange("email")}/>
             </MKBox>
             <MKBox mb={2}>
-              <MKInput type="password" label="Password" fullWidth />
+              <MKInput type="password" label="Password" fullWidth onChange={handleChange("password")}/>
             </MKBox>
+            {values.error && (
+              <MKTypography component="p" color="action">
+                <Icon color="error">
+                  error
+                </Icon>
+                {values.error}
+              </MKTypography>
+            )}
             <MKBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox />
+              <Checkbox onChange={handleChange("policy")}/>
               <MKTypography
                 variant="button"
                 fontWeight="regular"
@@ -87,8 +131,8 @@ function Cover() {
               </MKTypography>
             </MKBox>
             <MKBox mt={3} mb={1}>
-              <MKButton variant="gradient" color="info" fullWidth>
-                sign in
+              <MKButton variant="gradient" color="info" fullWidth onClick={clickSubmit}>
+                sign up
               </MKButton>
             </MKBox>
             <MKBox mt={3} mb={1} textAlign="center">
@@ -96,7 +140,7 @@ function Cover() {
                 Already have an account?{" "}
                 <MKTypography
                   component={Link}
-                  to="/authentication/sign-in/cover"
+                  to="/authentication/sign-in/basic"
                   variant="button"
                   color="info"
                   fontWeight="medium"
@@ -109,7 +153,22 @@ function Cover() {
           </MKBox>
         </MKBox>
       </Card>
-    </CoverLayout>
+      <Dialog open={values.open} disableBackdropClick={true}>
+        <DialogTitle>New Account</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            New account successfully created.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Link to="/authentication/sign-in/basic">
+            <MKButton color="primary" autoFocus="autoFocus" variant="contained">
+              Sign In
+            </MKButton>
+          </Link>
+        </DialogActions>
+      </Dialog>
+    </BasicLayout>
   );
 }
 

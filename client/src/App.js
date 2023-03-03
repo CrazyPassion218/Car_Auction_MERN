@@ -26,7 +26,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import theme from "assets/theme";
 import routes from "routes";
 import Presentation from "./layouts/pages/landing-pages/rental";
-
+import SignInBasicPage from "./layouts/authentication/sign-in/basic"
 // Material Kit 2 PRO React routes
 
 export default function App() {

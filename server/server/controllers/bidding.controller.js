@@ -10,7 +10,8 @@ export default (server) => {
             socket.leave(data.room)
         })
         socket.on('new bid', data => {
-            bid(data.bidInfo, data.room)
+            console.log(data);
+            // bid(data.bidInfo, data.room)
         })
     })
     const bid = async (bid, auction) => {

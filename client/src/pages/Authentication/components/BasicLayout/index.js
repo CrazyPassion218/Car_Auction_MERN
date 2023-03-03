@@ -30,18 +30,20 @@ import SimpleFooter from "examples/Footers/SimpleFooter";
 import routes from "routes";
 
 function BasicLayout({ image, children }) {
+  const brand = <span style={{ fontSize: "2.5rem", color: "#9595f7" }}>iAuto</span>;
   return (
     <>
       <DefaultNavbar
         routes={routes}
         action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-pro-react",
-          label: "buy now",
+          type: "internal",
+          route: "/",
+          label: "sign in",
           color: "info",
         }}
         transparent
         light
+        brand={brand}
       />
       <MKBox
         position="absolute"

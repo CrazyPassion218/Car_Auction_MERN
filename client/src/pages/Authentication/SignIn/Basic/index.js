@@ -16,8 +16,7 @@ Coded by www.creative-tim.com
 import { useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 // @mui material components
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
@@ -39,13 +38,30 @@ import MKButton from "components/MKButton";
 import BasicLayout from "pages/Authentication/components/BasicLayout";
 
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/motors.stylemixthemes.com/slider2.jpg";
 
 function SignInBasic() {
   const [rememberMe, setRememberMe] = useState(false);
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
-
+  const handleSetEmail = (ev) => {
+    setEmail(ev.target.value);
+  }
+  const handleSetPassword = (ev) => {
+    setPassword(ev.target.value);
+  }
+  const onClickSignIn = () => {
+    // if((email === '123@gmail.com') && (password === '123')){
+    //   const userData = {
+    //     auth: true,
+    //     mail: email,
+    //   }
+    //   localStorage.setItem('auth', JSON.stringify(userData));
+    //   navigate("pages/AuctionPage");
+    // }
+  }
   return (
     <BasicLayout image={bgImage}>
       <Card>
@@ -84,10 +100,10 @@ function SignInBasic() {
         <MKBox pt={4} pb={3} px={3}>
           <MKBox component="form" role="form">
             <MKBox mb={2}>
-              <MKInput type="email" label="Email" fullWidth />
+              <MKInput type="email" label="Email" fullWidth onChange={handleSetEmail}/>
             </MKBox>
             <MKBox mb={2}>
-              <MKInput type="password" label="Password" fullWidth />
+              <MKInput type="password" label="Password" fullWidth onChange={handleSetPassword}/>
             </MKBox>
             <MKBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -102,7 +118,7 @@ function SignInBasic() {
               </MKTypography>
             </MKBox>
             <MKBox mt={4} mb={1}>
-              <MKButton variant="gradient" color="info" fullWidth>
+              <MKButton variant="gradient" color="info" fullWidth onClick={onClickSignIn}>
                 sign in
               </MKButton>
             </MKBox>

@@ -30,6 +30,7 @@ import { useEffect, useState, useRef } from "react";
 import MKTypography from "../../../../components/MKTypography";
 import VehicleAuctionCard from "../../../../components/VehicleCards/VehicleAuctionCard";
 import VehicleCard from "../../../../components/VehicleCards/VehicleCard";
+import MKButton from "components/MKButton";
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -51,13 +52,13 @@ const timeNow = Date.now();
 const Places = () => {
   const actionProps = {
     type: "internal",
-    route: "/pages/landing-pages/rental",
+    route: "pages/AuctionPage",
     color: "success",
     label: "place a bid",
   };
   const actionProps1 = {
     type: "internal",
-    route: "/pages/landing-pages/rental",
+    route: "/",
     color: "success",
     label: "add to my cart",
   };
@@ -91,6 +92,9 @@ const Places = () => {
             <MKTypography variant="h3" mb={1}>
               Auction
             </MKTypography>
+            <MKButton variant="gradient" color="info" >
+              Create my Auction
+            </MKButton>
           </Grid>
           <Grid container spacing={3} sx={{ mt: 3 }}>
             <Grid item xs={12} md={6} lg={3}>
