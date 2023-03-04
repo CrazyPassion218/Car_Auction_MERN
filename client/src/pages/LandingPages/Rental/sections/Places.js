@@ -25,7 +25,7 @@ import MKBox from "components/MKBox";
 import vehicle1 from "assets/images/motors.stylemixthemes.com/01-6-255x135.jpg";
 
 import { useEffect, useState, useRef } from "react";
-
+import { useNavigate } from "react-router-dom";
 // Images
 import MKTypography from "../../../../components/MKTypography";
 import VehicleAuctionCard from "../../../../components/VehicleCards/VehicleAuctionCard";
@@ -34,7 +34,7 @@ import MKButton from "components/MKButton";
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
-
+  
   // Remember the latest callback.
   useEffect(() => {
     savedCallback.current = callback;
@@ -52,7 +52,7 @@ const timeNow = Date.now();
 const Places = () => {
   const actionProps = {
     type: "internal",
-    route: "pages/AuctionPage",
+    route: "pages/AuctionPage/BidAuction",
     color: "success",
     label: "place a bid",
   };
@@ -62,10 +62,12 @@ const Places = () => {
     color: "success",
     label: "add to my cart",
   };
-
+  const navigate = useNavigate();
   const [auctionPrice, setAuctionPrice] = useState(13000);
   const [auctionPeople, setAuctionPeople] = useState(15);
-
+  const onClickCreate = () => {
+    navigate('pages/AuctionPage/CreateAuction')
+  };
   useInterval(() => {
     if (Date.now() <= timeNow + 100000) {
       setAuctionPrice(auctionPrice + 80);
@@ -92,7 +94,7 @@ const Places = () => {
             <MKTypography variant="h3" mb={1}>
               Auction
             </MKTypography>
-            <MKButton variant="gradient" color="info" >
+            <MKButton variant="gradient" color="info" onClick={onClickCreate}>
               Create my Auction
             </MKButton>
           </Grid>

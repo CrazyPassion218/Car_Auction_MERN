@@ -43,7 +43,8 @@ import Icon from "@mui/material/Icon";
 import Rental from "layouts/pages/landing-pages/rental";
 import SignInBasicPage from "layouts/authentication/sign-in/basic";
 import SignUpCoverPage from "layouts/authentication/sign-up/cover";
-import AuctionPage from "layouts/pages/AuctionPage";
+import BidAuctionPage from "layouts/pages/AuctionPage/BidAuction";
+import CreateAuctionPage from "layouts/pages/AuctionPage/CreateAuction";
 
 const routes = [
   {
@@ -66,9 +67,19 @@ const routes = [
         name: "landing pages",
         collapse: [
           {
-            name: "auction",
-            route: "/pages/AuctionPage",
-            component: <AuctionPage />,
+            name: "bid auction",
+            route: "/pages/AuctionPage/BidAuction",
+            component: <BidAuctionPage />,
+          },
+        ],
+      },
+      {
+        name: "landing pages",
+        collapse: [
+          {
+            name: "create auction",
+            route: "/pages/AuctionPage/CreateAuction",
+            component: <CreateAuctionPage />,
           },
         ],
       },

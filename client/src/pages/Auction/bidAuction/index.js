@@ -47,7 +47,7 @@ function useInterval(callback, delay) {
       return () => clearInterval(id);
     }, [delay]);
 }
-function Auction() {
+function BidAuction() {
     const [auctionPrice, setAuctionPrice] = useState(0);
     const [auctionPeople, setAuctionPeople] = useState(0);
     const [auctionTime, setAuctionTime] = useState(timeEnd);
@@ -459,4 +459,4 @@ function Auction() {
   );
 }
 
-export default Auction;
+export default BidAuction;

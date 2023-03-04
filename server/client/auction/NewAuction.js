@@ -114,7 +114,7 @@ export default function NewAuction() {
             New Auction
           </Typography>
           <br/>
-          <input accept="image/*" onChange={handleChange('image')} className={classes.input} id="icon-button-file" type="file" />
+          <input accept="image/*" onChange={handleChange('image')} className={classes.input} id="icon-button-file" type="file"/>
           <label htmlFor="icon-button-file">
             <Button variant="contained" color="secondary" component="span">
               Upload Image

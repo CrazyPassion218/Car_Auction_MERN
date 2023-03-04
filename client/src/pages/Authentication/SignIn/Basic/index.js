@@ -86,7 +86,7 @@ const clickSubmit = () => {
         localStorage.setItem('auth', JSON.stringify({...data, auth: true }));
         setShowMoadl(!showModal);
         setTimeout(() => {
-          navigate('/pages/AuctionPage');
+          navigate('/pages/AuctionPage/BidAuction');
         }, 2000);
       })
     }
