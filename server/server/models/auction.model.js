@@ -13,7 +13,7 @@ const AuctionSchema = new mongoose.Schema({
     trim: true
   },
   image: {
-    data: Buffer,
+    data: String,
     contentType: String
   },
   updated: Date,

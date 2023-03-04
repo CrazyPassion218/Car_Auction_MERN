@@ -32,6 +32,9 @@ import Icon from '@material-ui/core/Icon'
 // import FileUpload from '@material-ui/icons/AddPhotoAlternate';
 import { FileUpload, ForkRight } from "@mui/icons-material";
 import TextField from '@material-ui/core/TextField'
+import Snackbar from "@mui/material/Snackbar";
+// @mui icons
+import CloseIcon from "@mui/icons-material/Close";
 import {create} from 'api/auction';
 // @mui icons
 
@@ -74,6 +77,23 @@ const useStyles = makeStyles(theme => ({
         color: 'lightBlue'
     }
   }))
+
+  const toastStyles = ({
+    palette: { info },
+    borders: { borderRadius },
+    typography: { size },
+    boxShadows: { lg },
+  }) => ({
+    "& .MuiPaper-root": {
+      backgroundColor: info.main,
+      borderRadius: borderRadius.lg,
+      fontSize: size.sm,
+      fontWeight: 400,
+      boxShadow: lg,
+      px: 2,
+      py: 0.5,
+    },
+  });
 function CreateAuction() {
     const navigate = useNavigate();
     const classes = useStyles()
@@ -101,10 +121,9 @@ function CreateAuction() {
         bidStart: defaultStartTime,
         bidEnd: defaultEndTime,
         startingBid: 0,
-        redirect: false,
         error: ''
     });
-
+    const [redirect, setRedirect] = useState(false);
     useEffect(() => {
         if(localStorage.getItem('auth') === null)navigate('/authentication/sign-in/basic');
      },[]);
@@ -145,39 +164,53 @@ function CreateAuction() {
 
     const clickSubmit = () => {
         console.log(values);
-    if(values.bidEnd < values.bidStart){
-        setValues({...values, error: "Auction cannot end before it starts"})
-    }
-    else{
-        let auctionData = new FormData()
-        values.itemName && auctionData.append('itemName', values.itemName)
-        values.description && auctionData.append('description', values.description)
-        values.image1 && auctionData.append('image1', values.image1)
-        values.image2 && auctionData.append('image2', values.image2)
-        values.image3 && auctionData.append('image3', values.image3)
-        values.image4 && auctionData.append('image4', values.image4)
-        values.startingBid && auctionData.append('startingBid', values.startingBid)
-        values.bidStart && auctionData.append('bidStart', values.bidStart)
-        values.bidEnd && auctionData.append('bidEnd', values.bidEnd)
-        console.log(auctionData);
-        create({
-            userId: jwt.user._id
-            }, {
-                t: jwt.token
-            }, auctionData).then((data) => {
-            // if (data.error) {
-            //     setValues({...values, error: data.error})
-            // } else {
-            //     setValues({...values, error: '', redirect: true})
-            // }
-        })
-    }
+        if(values.bidEnd < values.bidStart){
+            setValues({...values, error: "Auction cannot end before it starts"})
+        }
+        else{
+            let auctionData = new FormData()
+            values.itemName && auctionData.append('itemName', values.itemName)
+            values.description && auctionData.append('description', values.description)
+            values.image1 && auctionData.append('image1', values.image1)
+            values.image2 && auctionData.append('image2', values.image2)
+            values.image3 && auctionData.append('image3', values.image3)
+            values.image4 && auctionData.append('image4', values.image4)
+            values.startingBid && auctionData.append('startingBid', values.startingBid)
+            values.bidStart && auctionData.append('bidStart', values.bidStart)
+            values.bidEnd && auctionData.append('bidEnd', values.bidEnd)
+            console.log(auctionData);
+            create({
+                userId: jwt.user._id
+                }, {
+                    t: jwt.token
+                }, auctionData).then((data) => {
+                if (data.error) {
+                    setValues({...values, error: data.error})
+                } else {
+                    setValues({...values, error: ''})
+                    setRedirect(true);
+                }
+            })
+        }
     }
 
-    if (values.redirect) {
-      return (<Redirect to={'/myauctions'}/>)
+    if (redirect) {
+        setTimeout(() => {
+            navigate('pages/landing-pages/rental');
+        }, 1500);
     }
+    const toggleSnackbar = () => setRedirect(!redirect);
     const brand = <span style={{ fontSize: "2.5rem", color: "#9595f7" }}>iAuto</span>;
+    const toastTemplate = (
+        <MKBox display="flex" justifyContent="space-between" alignItems="center" color="white">
+          Auction created successfully!
+          <CloseIcon
+            fontSize="medium"
+            sx={{ ml: 4, mr: -1, cursor: "pointer" }}
+            onClick={toggleSnackbar}
+          />
+        </MKBox>
+    );
   return (
     <>
     <DefaultNavbar
@@ -433,6 +466,15 @@ function CreateAuction() {
                 <Link to='/myauctions' className={classes.submit}><MKButton variant="contained">Cancel</MKButton></Link>
             </CardActions>
         </Card>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={redirect}
+          autoHideDuration={3000}
+          onClose={toggleSnackbar}
+          message={toastTemplate}
+          action={toggleSnackbar}
+          sx={toastStyles}
+        />
     </>
   );
 }
