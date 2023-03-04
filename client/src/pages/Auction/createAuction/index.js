@@ -28,9 +28,11 @@ import Divider from "@mui/material/Divider";
 import Slide from "@mui/material/Slide";
 import { makeStyles } from '@material-ui/core/styles'
 import auth from "api/auth/auth-helper";
+import Icon from '@material-ui/core/Icon'
 // import FileUpload from '@material-ui/icons/AddPhotoAlternate';
 import { FileUpload, ForkRight } from "@mui/icons-material";
 import TextField from '@material-ui/core/TextField'
+import {create} from 'api/auction';
 // @mui icons
 
 const useStyles = makeStyles(theme => ({
@@ -108,13 +110,41 @@ function CreateAuction() {
      },[]);
 
     const handleChange = name => event => {
-        const value = name.indexOf('image') !== -1
-        ? event.target.files[0]
-        : event.target.value
+        console.log(name);
+        console.log(event.target.files);
+        let value;
+        if (name.indexOf('image') !== -1){
+            switch (name) {
+                case 'image1':
+                    value = event.target.files[0];
+                    break;
+                case 'image2':
+                    value = event.target.files[0];
+                    break;
+                case 'image3':
+                    console.log('entered');
+                    value = event.target.files[0];
+                    console.log(value);
+                    break;
+                case 'image4':
+                    value = event.target.files[0];
+                    break;
+                default:
+                    break;
+            }
+        }else{
+            value = event.target.value;
+        }
         setValues({...values, [name]: value })
+        // const value = name.indexOf('image') !== -1
+        // ? event.target.files[0]
+        // : event.target.value
+        // console.log(value);
+        // setValues({...values, [name]: value })
     }
 
     const clickSubmit = () => {
+        console.log(values);
     if(values.bidEnd < values.bidStart){
         setValues({...values, error: "Auction cannot end before it starts"})
     }
@@ -122,23 +152,24 @@ function CreateAuction() {
         let auctionData = new FormData()
         values.itemName && auctionData.append('itemName', values.itemName)
         values.description && auctionData.append('description', values.description)
-        values.image1 && auctionData.append('image', values.image1)
-        values.image2 && auctionData.append('image', values.image2)
-        values.image3 && auctionData.append('image', values.image3)
-        values.image4 && auctionData.append('image', values.image4)
+        values.image1 && auctionData.append('image1', values.image1)
+        values.image2 && auctionData.append('image2', values.image2)
+        values.image3 && auctionData.append('image3', values.image3)
+        values.image4 && auctionData.append('image4', values.image4)
         values.startingBid && auctionData.append('startingBid', values.startingBid)
         values.bidStart && auctionData.append('bidStart', values.bidStart)
         values.bidEnd && auctionData.append('bidEnd', values.bidEnd)
+        console.log(auctionData);
         create({
             userId: jwt.user._id
             }, {
                 t: jwt.token
             }, auctionData).then((data) => {
-            if (data.error) {
-                setValues({...values, error: data.error})
-            } else {
-                setValues({...values, error: '', redirect: true})
-            }
+            // if (data.error) {
+            //     setValues({...values, error: data.error})
+            // } else {
+            //     setValues({...values, error: '', redirect: true})
+            // }
         })
     }
     }
@@ -203,7 +234,7 @@ function CreateAuction() {
             }}
         >
             <MKTypography 
-                color="black"
+                color="dark"
                 fontWeight='bold'
                 variant="h2"
                 px={3}
@@ -291,6 +322,7 @@ function CreateAuction() {
                             width: '100px',
                             zIndex: 3,
                             p: 2,
+                            ml: 1,
                             backgroundColor: 'rgb(48, 29, 50)',
                             backdropFilter: "saturate(200%) blur(30px)",
                             boxShadow: ({ boxShadows: { xxl } }) => xxl,
@@ -308,7 +340,7 @@ function CreateAuction() {
                     </Card>
                     <Card
                         sx={{
-                            mt: -1,
+                            mt: -3,
                             backdropFilter: "saturate(200%) blur(30px)",
                             boxShadow: ({ boxShadows: { xxl } }) => xxl,
                             overflow: "hidden",
@@ -321,7 +353,7 @@ function CreateAuction() {
                             id="multiline-flexible"
                             label="Description"
                             multiline
-                            rows={6}
+                            minRows={6}
                             value={values.description}
                             onChange={handleChange('description')}
                             className={classes.textField}
@@ -335,6 +367,7 @@ function CreateAuction() {
                             width: '180px',
                             zIndex: 3,
                             p: 2,
+                            ml: 1,
                             backgroundColor: 'rgb(48, 29, 50)',
                             backdropFilter: "saturate(200%) blur(30px)",
                             boxShadow: ({ boxShadows: { xxl } }) => xxl,
@@ -352,7 +385,7 @@ function CreateAuction() {
                     </Card>
                     <Card
                         sx={{
-                            mt: -1,
+                            mt: -3,
                             backdropFilter: "saturate(200%) blur(30px)",
                             boxShadow: ({ boxShadows: { xxl } }) => xxl,
                             overflow: "hidden",
@@ -385,15 +418,15 @@ function CreateAuction() {
                             shrink: true,
                             }}
                         />
+                        {
+                            values.error && (<Typography component="p" color="error">
+                            <Icon color="error" className={classes.error}>error</Icon>
+                            {values.error}</Typography>)
+                        }
                     </Card>
                 </Grid>
             </Grid>
-            <br/> <br/>
-            {
-                values.error && (<Typography component="p" color="error">
-                <Icon color="error" className={classes.error}>error</Icon>
-                {values.error}</Typography>)
-            }
+            
             </CardContent>
             <CardActions >
                 <MKButton color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Submit</MKButton>

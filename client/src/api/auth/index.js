@@ -1,5 +1,4 @@
 import { url } from "constant/url"
-import axios from "axios";
 
 const signin = async (user) => {
     try {

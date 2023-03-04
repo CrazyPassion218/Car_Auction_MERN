@@ -16,7 +16,7 @@ const create = (req, res) => {
     }
     let auction = new Auction(fields)
     auction.seller= req.profile
-    if(files.image){
+    if(files.image1 && files.image2 && files.image3 && files.image4){
       auction.image.data = fs.readFileSync(files.image.path)
       auction.image.contentType = files.image.type
     }
