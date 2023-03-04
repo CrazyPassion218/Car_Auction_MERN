@@ -4,18 +4,19 @@ import expressJwt from 'express-jwt'
 import config from './../../config/config'
 
 const signin = async (req, res) => {
+  console.log(req.body);
   try {
     let user = await User.findOne({
         "email": req.body.email
       })
-
-      if (!user)
+      if (!user){
         return res.status('401').json({
           error: "User not found"
         })
+      }
 
       if (!user.authenticate(req.body.password)) {
-        return res.status('401').send({
+        return res.status('401').json({
           error: "Email and password don't match."
         })
       }

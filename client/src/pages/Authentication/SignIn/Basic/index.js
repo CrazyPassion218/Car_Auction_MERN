@@ -33,35 +33,92 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
-
+import Icon from '@material-ui/core/Icon';
 // Authentication pages components
 import BasicLayout from "pages/Authentication/components/BasicLayout";
-
+import auth from "api/auth/auth-helper";
 // Images
 import bgImage from "assets/images/motors.stylemixthemes.com/slider2.jpg";
+import { signin } from "api/auth";
+import Snackbar from "@mui/material/Snackbar";
+// @mui icons
+import CloseIcon from "@mui/icons-material/Close";
 
-function SignInBasic() {
-  const [rememberMe, setRememberMe] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
-  const handleSetEmail = (ev) => {
-    setEmail(ev.target.value);
+const toastStyles = ({
+  palette: { info },
+  borders: { borderRadius },
+  typography: { size },
+  boxShadows: { lg },
+}) => ({
+  "& .MuiPaper-root": {
+    backgroundColor: info.main,
+    borderRadius: borderRadius.lg,
+    fontSize: size.sm,
+    fontWeight: 400,
+    boxShadow: lg,
+    px: 2,
+    py: 0.5,
+  },
+});
+function SignInBasic(props) {
+const [values, setValues] = useState({
+  email: '',
+  password: '',
+  error: '',
+  // redirectToReferrer: false,
+  // remember: false,
+})
+const [showModal, setShowMoadl] = useState(false);
+const navigate = useNavigate();
+const clickSubmit = () => {
+  const user = {
+    email: values.email || undefined,
+    password: values.password || undefined,
   }
-  const handleSetPassword = (ev) => {
-    setPassword(ev.target.value);
-  }
-  const onClickSignIn = () => {
-    // if((email === '123@gmail.com') && (password === '123')){
-    //   const userData = {
-    //     auth: true,
-    //     mail: email,
-    //   }
-    //   localStorage.setItem('auth', JSON.stringify(userData));
-    //   navigate("pages/AuctionPage");
-    // }
-  }
+  
+  signin(user).then((data) => {
+    console.log(data);
+    if (data.error) {
+      setValues({ ...values, error: data.error})
+    } else {
+      auth.authenticate(data, () => {
+        setValues({ ...values, error: ''});
+        localStorage.setItem('auth', JSON.stringify({...data, auth: true }));
+        setShowMoadl(!showModal);
+        setTimeout(() => {
+          navigate('/pages/AuctionPage');
+        }, 2000);
+      })
+    }
+  })
+}
+
+const handleChange = name => event => {
+  setValues({ ...values, [name]: event.target.value })
+}
+const toggleSnackbar = () => setShowMoadl(!showModal);
+const toastTemplate = (
+  <MKBox display="flex" justifyContent="space-between" alignItems="center" color="white">
+    Successfully SignIn!
+    <CloseIcon
+      fontSize="medium"
+      sx={{ ml: 4, mr: -1, cursor: "pointer" }}
+      onClick={toggleSnackbar}
+    />
+  </MKBox>
+);
+
+  // const {from} = props.location.state || {
+  //   from: {
+  //     pathname: '/'
+  //   }
+  // }
+
+  // const {redirectToReferrer} = values
+  // if (redirectToReferrer) {
+  //     return (<Redirect to={from}/>)
+  // }
+ 
   return (
     <BasicLayout image={bgImage}>
       <Card>
@@ -100,25 +157,31 @@ function SignInBasic() {
         <MKBox pt={4} pb={3} px={3}>
           <MKBox component="form" role="form">
             <MKBox mb={2}>
-              <MKInput type="email" label="Email" fullWidth onChange={handleSetEmail}/>
+              <MKInput type="email" label="Email" fullWidth onChange={handleChange('email')}/>
             </MKBox>
             <MKBox mb={2}>
-              <MKInput type="password" label="Password" fullWidth onChange={handleSetPassword}/>
+              <MKInput type="password" label="Password" fullWidth onChange={handleChange('password')}/>
             </MKBox>
             <MKBox display="flex" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
+              <Switch checked={values.remember} onChange={handleChange('remember')} />
               <MKTypography
                 variant="button"
                 fontWeight="regular"
                 color="text"
-                onClick={handleSetRememberMe}
+                onClick={handleChange('remember')}
                 sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
               >
                 &nbsp;&nbsp;Remember me
               </MKTypography>
             </MKBox>
+            {
+              values.error && (<MKTypography component="p" color="error">
+                <Icon color="error" >error</Icon>
+                {values.error}
+              </MKTypography>)
+            }
             <MKBox mt={4} mb={1}>
-              <MKButton variant="gradient" color="info" fullWidth onClick={onClickSignIn}>
+              <MKButton variant="gradient" color="info" fullWidth onClick={clickSubmit}>
                 sign in
               </MKButton>
             </MKBox>
@@ -139,6 +202,15 @@ function SignInBasic() {
             </MKBox>
           </MKBox>
         </MKBox>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={showModal}
+          autoHideDuration={3000}
+          onClose={toggleSnackbar}
+          message={toastTemplate}
+          action={toggleSnackbar}
+          sx={toastStyles}
+        />
       </Card>
     </BasicLayout>
   );

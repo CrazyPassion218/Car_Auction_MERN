@@ -102,7 +102,7 @@ function Cover() {
               <MKInput type="password" label="Password" fullWidth onChange={handleChange("password")}/>
             </MKBox>
             {values.error && (
-              <MKTypography component="p" color="action">
+              <MKTypography component="p" color="info">
                 <Icon color="error">
                   error
                 </Icon>
@@ -153,7 +153,7 @@ function Cover() {
           </MKBox>
         </MKBox>
       </Card>
-      <Dialog open={values.open} disableBackdropClick={true}>
+      <Dialog open={values.open}>
         <DialogTitle>New Account</DialogTitle>
         <DialogContent>
           <DialogContentText>
