@@ -120,6 +120,7 @@ const Places = () => {
                   <MKBox mt={3}>
                     <VehicleAuctionCard
                       image={auction.image}
+                      auction={auction}
                       now={nowTime}
                       title={auction.itemName}
                       vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}

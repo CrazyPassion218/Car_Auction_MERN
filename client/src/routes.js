@@ -68,7 +68,7 @@ const routes = [
         collapse: [
           {
             name: "bid auction",
-            route: "/pages/AuctionPage/BidAuction",
+            route: "/pages/AuctionPage/BidAuction/:auctionId",
             component: <BidAuctionPage />,
           },
         ],

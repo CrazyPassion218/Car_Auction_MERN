@@ -20,7 +20,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import Divider from "@mui/material/Divider";
 import Slide from "@mui/material/Slide";
@@ -61,6 +61,7 @@ function BidAuction() {
     const handleSetPrice = (ev) => {
         setPrice(ev.target.value);
     }
+    const {auctionId} = useParams();
     const onClickPlaceBid = () => {
         // axios.get('http://localhost:3001/api/auctions/defaultphoto').then((obj) => {
             let data = {
@@ -85,6 +86,7 @@ function BidAuction() {
         }
       }, 1000);
     useEffect(() => {
+        console.log(auctionId);
        if(localStorage.getItem('auth') === null)navigate('/authentication/sign-in/basic');
     },[])
     useEffect(() => {
