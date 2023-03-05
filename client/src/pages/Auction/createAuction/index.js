@@ -129,8 +129,6 @@ function CreateAuction() {
      },[]);
 
     const handleChange = name => event => {
-        console.log(name);
-        console.log(event.target.files);
         let value;
         if (name.indexOf('image') !== -1){
             switch (name) {

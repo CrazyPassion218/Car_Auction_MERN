@@ -33,7 +33,6 @@ import Faq from "pages/LandingPages/Rental/sections/Faq";
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
-
 // Images
 import bgImage from "assets/images/motors.stylemixthemes.com/slider2.jpg";
 

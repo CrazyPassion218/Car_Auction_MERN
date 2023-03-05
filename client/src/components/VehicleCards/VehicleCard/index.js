@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 
 import { Fragment } from "react";
-
+import { url } from "constant/url";
 // react-router components
 import { Link } from "react-router-dom";
 
@@ -33,7 +33,7 @@ import MKButton from "components/MKButton";
 import AddRoadIcon from "@mui/icons-material/AddRoad";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-
+import { Avatar } from "@mui/material";
 // eslint-disable-next-line react/prop-types
 function VehicleCard({ image, title, description, vehicleInfo, action }) {
   return (
@@ -41,7 +41,8 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
       <MKBox position="relative" borderRadius="lg" mx={2} mt={-3}>
         <MKBox
           component="img"
-          src={image}
+          // src={  }
+          src={`data:${image.contentType[0]};base64,${image.data[0]}`} 
           alt={title}
           borderRadius="lg"
           shadow="md"
@@ -56,9 +57,9 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
           height="100%"
           position="absolute"
           left={0}
-          top={0}
+          top={0}   
           sx={{
-            backgroundImage: `url(${image})`,
+            backgroundImage: `data:${image.contentType[0]};base64,${image.data[0]}`,
             transform: "scale(0.94)",
             filter: "blur(12px)",
             backgroundSize: "cover",
@@ -120,7 +121,7 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
 
 // Typechecking props for the VehicleCard
 VehicleCard.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   vehicleInfo: PropTypes.shape({
     miles: PropTypes.number,

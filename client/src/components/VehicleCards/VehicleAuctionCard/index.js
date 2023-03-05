@@ -5,8 +5,10 @@ import VehicleCard from "../VehicleCard";
 import AuctionCountdown from "./AuctionCountdown";
 import MKBadge from "../../MKBadge";
 
+
 function VehicleAuctionCard({
   image,
+  now,
   title,
   timeData,
   topBidPrice,
@@ -14,11 +16,12 @@ function VehicleAuctionCard({
   vehicleInfo,
   action,
 }) {
-  const { timeStart, timeDuration } = timeData;
-  const timeEnd = Date.parse(timeStart) + timeDuration;
+  const [timeNow, setTimeNow] = [now]
+  const { timeStart, timeEnd } = timeData;
   const description = (
     <>
-      <AuctionCountdown timeEnd={timeEnd} />
+    { new Date(timeStart) > timeNow && <MKBadge sx={{fontSize: '14px', color: 'red'}}>Start in {timeStart.split('.')[0]}</MKBadge>}
+    { new Date(timeStart) < timeNow && <AuctionCountdown timeStart={timeStart} timeEnd={timeEnd} />}
       <MKBadge
         badgeContent={
           <>
@@ -41,7 +44,6 @@ function VehicleAuctionCard({
       />
     </>
   );
-
   return (
     <VehicleCard
       image={image}
@@ -54,13 +56,8 @@ function VehicleAuctionCard({
   );
 }
 
-VehicleAuctionCard.defaultProps = {
-  allBidCount: 0,
-  topBidPrice: 0,
-};
-
 VehicleAuctionCard.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   vehicleInfo: PropTypes.shape({
     miles: PropTypes.number,
@@ -68,8 +65,8 @@ VehicleAuctionCard.propTypes = {
     transmission: PropTypes.oneOf(["Manual", "Automatic"]),
   }).isRequired,
   timeData: PropTypes.shape({
-    timeStart: PropTypes.instanceOf(Date),
-    timeDuration: PropTypes.number,
+    timeStart: PropTypes.string,
+    timeEnd: PropTypes.string,
   }).isRequired,
   topBidPrice: PropTypes.number,
   allBidCount: PropTypes.number,

@@ -32,10 +32,8 @@ const create = (req, res) => {
       imageData.push(fs.readFileSync(files.image2.path));
       imageData.push(fs.readFileSync(files.image3.path));
       imageData.push(fs.readFileSync(files.image4.path));
-      console.log(type);
-      console.log(imageData);
-      auction.image.data = JSON.stringify(imageData);
-      auction.image.contentType = JSON.stringify(type);
+      auction.image.data = imageData;
+      auction.image.contentType = type;
     }
     try {
       let result = await auction.save()
@@ -66,9 +64,10 @@ const auctionByID = async (req, res, next, id) => {
 }
 
 const photo = (req, res, next) => {
+  console.log(req.auction.image.data[0]);
   if(req.auction.image.data){
-    res.set("Content-Type", req.auction.image.contentType)
-    return res.send(req.auction.image.data)
+    res.set("Content-Type", req.auction.image.contentType[0])
+    return res.send(req.auction.image.data[0])
   }
   next()
 }

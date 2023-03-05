@@ -31,6 +31,8 @@ import MKTypography from "../../../../components/MKTypography";
 import VehicleAuctionCard from "../../../../components/VehicleCards/VehicleAuctionCard";
 import VehicleCard from "../../../../components/VehicleCards/VehicleCard";
 import MKButton from "components/MKButton";
+import { listOpen } from "api/auction";
+import Card from "assets/theme/components/card";
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -63,18 +65,30 @@ const Places = () => {
     label: "add to my cart",
   };
   const navigate = useNavigate();
-  const [auctionPrice, setAuctionPrice] = useState(13000);
-  const [auctionPeople, setAuctionPeople] = useState(15);
+  // const [auctionPrice, setAuctionPrice] = useState('');
+  // const [auctionPeople, setAuctionPeople] = useState(0);
+  const [nowTime, setNowTime] = useState(Date.now());
+  const [auctions, setAuctions] = useState([]);
   const onClickCreate = () => {
     navigate('pages/AuctionPage/CreateAuction')
   };
   useInterval(() => {
-    if (Date.now() <= timeNow + 100000) {
-      setAuctionPrice(auctionPrice + 80);
-      setAuctionPeople(auctionPeople + 1);
-    }
+      setNowTime(nowTime + 1000);
   }, 1000);
-
+  useEffect(() => {
+    const abortController = new AbortController()
+    const signal = abortController.signal
+    listOpen(signal).then((result) => {
+      if (result.error) {
+        setRedirectToSignin(true)
+      } else {
+        setAuctions(result);
+      }
+    })
+    return function cleanup(){
+      abortController.abort()
+    }
+  }, [])
   const dateStart = new Date(timeNow);
 
   return (
@@ -99,62 +113,30 @@ const Places = () => {
             </MKButton>
           </Grid>
           <Grid container spacing={3} sx={{ mt: 3 }}>
-            <Grid item xs={12} md={6} lg={3}>
-              <MKBox mt={3}>
-                <VehicleAuctionCard
-                  image={vehicle1}
-                  title="MERCEDES-BENZ"
-                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{ timeStart: dateStart, timeDuration: 100000 }}
-                  topBidPrice={auctionPrice}
-                  allBidCount={auctionPeople}
-                  action={actionProps}
-                />
-              </MKBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MKBox mt={3}>
-                <VehicleAuctionCard
-                  image={vehicle1}
-                  title="MERCEDES-BENZ"
-                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{ timeStart: dateStart, timeDuration: 100000 }}
-                  topBidPrice={auctionPrice}
-                  allBidCount={auctionPeople}
-                  action={actionProps}
-                />
-              </MKBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MKBox mt={3}>
-                <VehicleAuctionCard
-                  image={vehicle1}
-                  title="MERCEDES-BENZ"
-                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{ timeStart: dateStart, timeDuration: 100000 }}
-                  topBidPrice={auctionPrice}
-                  allBidCount={auctionPeople}
-                  action={actionProps}
-                />
-              </MKBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MKBox mt={3}>
-                <VehicleAuctionCard
-                  image={vehicle1}
-                  title="MERCEDES-BENZ"
-                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  timeData={{ timeStart: dateStart, timeDuration: 100000 }}
-                  topBidPrice={auctionPrice}
-                  allBidCount={auctionPeople}
-                  action={actionProps}
-                />
-              </MKBox>
-            </Grid>
+          {
+            auctions.map((auction, index) => {
+              return (
+                <Grid item xs={12} md={6} lg={3} key={auction._id}>
+                  <MKBox mt={3}>
+                    <VehicleAuctionCard
+                      image={auction.image}
+                      now={nowTime}
+                      title={auction.itemName}
+                      vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
+                      timeData={{ timeStart: auction.bidStart, timeEnd: auction.bidEnd }}
+                      topBidPrice={auction.startingBid}
+                      allBidCount={auction.bids.length}
+                      action={actionProps}
+                    />
+                  </MKBox>
+                </Grid>
+              )
+            })
+          }
           </Grid>
         </Container>
       </MKBox>
-      <MKBox component="section" py={1}>
+      {/* <MKBox component="section" py={1}>
         <Container>
           <Grid
             container
@@ -233,7 +215,7 @@ const Places = () => {
             </Grid>
           </Grid>
         </Container>
-      </MKBox>
+      </MKBox> */}
     </>
   );
 };
