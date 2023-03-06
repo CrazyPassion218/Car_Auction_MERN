@@ -139,9 +139,7 @@ function CreateAuction() {
                     value = event.target.files[0];
                     break;
                 case 'image3':
-                    console.log('entered');
                     value = event.target.files[0];
-                    console.log(value);
                     break;
                 case 'image4':
                     value = event.target.files[0];
@@ -153,15 +151,9 @@ function CreateAuction() {
             value = event.target.value;
         }
         setValues({...values, [name]: value })
-        // const value = name.indexOf('image') !== -1
-        // ? event.target.files[0]
-        // : event.target.value
-        // console.log(value);
-        // setValues({...values, [name]: value })
     }
 
     const clickSubmit = () => {
-        console.log(values);
         if(values.bidEnd < values.bidStart){
             setValues({...values, error: "Auction cannot end before it starts"})
         }
@@ -176,7 +168,6 @@ function CreateAuction() {
             values.startingBid && auctionData.append('startingBid', values.startingBid)
             values.bidStart && auctionData.append('bidStart', values.bidStart)
             values.bidEnd && auctionData.append('bidEnd', values.bidEnd)
-            console.log(auctionData);
             create({
                 userId: jwt.user._id
                 }, {
@@ -467,10 +458,10 @@ function CreateAuction() {
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={redirect}
-          autoHideDuration={3000}
+          autoHideDuration={1000}
           onClose={toggleSnackbar}
           message={toastTemplate}
-          action={toggleSnackbar}
+        //   action={toggleSnackbar}
           sx={toastStyles}
         />
     </>

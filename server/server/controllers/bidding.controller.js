@@ -3,13 +3,17 @@ import Auction from '../models/auction.model'
 export default (server) => {
     const io = require('socket.io').listen(server)
     io.on('connection', function(socket){
-        socket.on('join auction room', data => {
+        console.log(socket.id);
+        socket.on('join_auction_room', data => {
+            console.log('join!!')
             socket.join(data.room)
         })
         socket.on('leave auction room', data => {
+            console.log('out!!')
             socket.leave(data.room)
         })
         socket.on('new bid', data => {
+            console.log('bid!!')
             console.log(data);
             // bid(data.bidInfo, data.room)
         })
@@ -20,6 +24,7 @@ export default (server) => {
                                   .populate('bids.bidder', '_id name')
                                   .populate('seller', '_id name')
                                   .exec()
+                                  console.log(result);
             io
             .to(auction)
             .emit('new bid', result)

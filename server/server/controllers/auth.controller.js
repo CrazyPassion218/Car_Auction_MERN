@@ -4,7 +4,6 @@ import expressJwt from 'express-jwt'
 import config from './../../config/config'
 
 const signin = async (req, res) => {
-  console.log(req.body);
   try {
     let user = await User.findOne({
         "email": req.body.email

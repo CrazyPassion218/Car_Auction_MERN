@@ -36,7 +36,7 @@ function VehicleAuctionCard({
           </>
         }
       />}
-    { new Date(timeStart) < timeNow && <AuctionCountdown timeStart={timeStart} timeEnd={timeEnd} />}
+    { new Date(timeStart) < timeNow && <AuctionCountdown timeEnd={timeEnd} />}
       <MKBadge
         badgeContent={
           <>
@@ -61,7 +61,6 @@ function VehicleAuctionCard({
   );
   if(new Date(timeStart) > timeNow){action.label = 'Show Auction'; action.color = 'info'}
   action.route = "pages/AuctionPage/BidAuction/" + auction._id;
-  console.log(action.route);
   return (
     <VehicleCard
       image={image}

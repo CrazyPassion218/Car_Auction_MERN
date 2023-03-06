@@ -26,19 +26,19 @@ import MKTypography from "components/MKTypography";
 function DefaultCounterCard({ color, count, title, description, ...rest }) {
   return (
     <MKBox p={2} textAlign="center" lineHeight={1}>
-      <MKTypography variant="h1" color={color} textGradient>
+      <MKTypography variant="h3" color={color} textGradient>
         <CountUp end={count} duration={1} {...rest} />
       </MKTypography>
       {title && (
-        <MKTypography variant="h5" mt={2} mb={1}>
+        <MKTypography variant="h6" mt={2} mb={1}>
           {title}
         </MKTypography>
       )}
-      {description && (
+      {/* {description && (
         <MKTypography variant="body2" color="text">
           {description}
         </MKTypography>
-      )}
+      )} */}
     </MKBox>
   );
 }

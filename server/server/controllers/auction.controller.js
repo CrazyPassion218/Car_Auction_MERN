@@ -37,7 +37,6 @@ const create = (req, res) => {
     }
     try {
       let result = await auction.save()
-      console.log(result);
       res.status(200).json(result)
     }catch (err){
       return res.status(400).json({
@@ -64,7 +63,6 @@ const auctionByID = async (req, res, next, id) => {
 }
 
 const photo = (req, res, next) => {
-  console.log(req.auction.image.data[0]);
   if(req.auction.image.data){
     res.set("Content-Type", req.auction.image.contentType[0])
     return res.send(req.auction.image.data[0])
@@ -76,7 +74,7 @@ const defaultPhoto = (req, res) => {
 }
 
 const read = (req, res) => {
-  req.auction.image = undefined
+  // req.auction.image = undefined
   return res.json(req.auction)
 }
 

@@ -39,13 +39,12 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
   return <MKBadge badgeContent={time} color={color} container />;
 };
 
-function AuctionCountdown({ timeStart, timeEnd }) {
+function AuctionCountdown({ timeEnd }) {
   return <Countdown date={timeEnd} renderer={renderer}/>;
 }
 
 AuctionCountdown.propTypes = {
   timeEnd: PropTypes.string.isRequired,
-  timeStart: PropTypes.string.isRequired,
 };
 
 export default AuctionCountdown;
