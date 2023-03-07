@@ -79,8 +79,8 @@ const Places = () => {
     const abortController = new AbortController()
     const signal = abortController.signal
     listOpen(signal).then((result) => {
-      if (result.error) {
-        setRedirectToSignin(true)
+      if (!result) {
+        // setRedirectToSignin(true)
       } else {
         setAuctions(result);
       }

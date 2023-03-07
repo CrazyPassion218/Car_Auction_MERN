@@ -59,8 +59,8 @@ function VehicleAuctionCard({
       />
     </>
   );
-  if(new Date(timeStart) > timeNow){action.label = 'Show Auction'; action.color = 'info'}
   action.route = "pages/AuctionPage/BidAuction/" + auction._id;
+  if(new Date(timeStart) > timeNow){action.label = 'Show Auction'; action.color = 'info'; action.route = '/'}
   return (
     <VehicleCard
       image={image}

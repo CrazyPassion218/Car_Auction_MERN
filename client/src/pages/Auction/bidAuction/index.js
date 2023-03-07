@@ -17,9 +17,7 @@ import MKButton from "components/MKButton";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import Divider from "@mui/material/Divider";
@@ -29,9 +27,11 @@ import { read } from "api/auction";
 import auth from "api/auth/auth-helper";
 import { url } from "constant/url";
 // @mui icons
-import CloseIcon from "@mui/icons-material/Close";
-import { connect, io } from "socket.io-client";
-const socket = io.connect( 'http://localhost:3001' );
+// import CloseIcon from "@mui/icons-material/Close";
+// const socket = require('socket.io-client')('http://localhost');
+const io = require('socket.io-client')
+const socket = io('http://localhost:3001');
+
 function useInterval(callback, delay) {
     const savedCallback = useRef();
     // Remember the latest callback.
@@ -46,15 +46,15 @@ function useInterval(callback, delay) {
       return () => clearInterval(id);
     }, [delay]);
 }
-
 function BidAuction() {
     const [auction, setAuction] = useState({itemName: '', bidEnd: '', seller: {name: ''}, bids:[], startingBid: 0, image: {contentType: [], data: []}});
     const [price, setPrice] = useState(0);
     const [userPrice, setUserPrice] = useState(0);
-    const [bidders, setBidders] = useState([]);
     const [enableButton, setEnableButton] = useState(false);
     const [seller, setSeller] = useState('');
     const [isSeller, setIsSeller] = useState(false);
+    const [isAutomatic, setIsAutomatic] = useState(false);
+    const [autoBidPrice, setAutoBidPrice] = useState(0);
     const [completeAuction, setCompleteAuction] = useState(false);
     const {auctionId} = useParams();
     const navigate = useNavigate();    
@@ -67,51 +67,28 @@ function BidAuction() {
             setCompleteAuction(true);
         }
     }, 1000);
-    useEffect(() => {
-        if(localStorage.getItem('auth') === null)navigate('/authentication/sign-in/basic');
-        else{
-            const abortController = new AbortController()
-            const signal = abortController.signal;
-            read({auctionId: auctionId}, signal).then((data) => {
-                console.log(data);
-            if (data.error) {
-                setError(data.error)
-            } else {
-                console.log(data);
-                setAuction(data);
-                setPrice(data.startingBid);
-                setUserPrice(data.startingBid);
-                setBidders(data.bids);
-                setSeller(data.seller.name);
-                if(data.seller._id === JSON.parse(localStorage.getItem('auth')).user._id)setIsSeller(true);
-            }
-            })
-            return function cleanup(){
-                abortController.abort()
-            }
-        }
-    }, [auctionId])
-    useEffect(() => {
-        socket.on('connect', () => {
-            console.log('connected!!!');
-            // setIsConnected(true);
-          });
-        console.log('will connect socket.')
-        socket.on('connect', function() {
-            console.log('sdfsdfsdf');
-        })
-        socket.emit('join_auction_room', {room: auctionId});
-        return () => {
-        socket.emit('leave auction room', {
-            room: auctionId
-        })
-        }
-    }, [])
 
     useEffect(() => {
-        console.log('will send bid in this time');
+        socket.emit('join_auction_room', {room: auctionId})
+        return () => {
+            socket.emit('leave auction room', {
+              room: auctionId
+            })
+          }
+    }, [])
+    useEffect(() => {
         socket.on('new bid', payload => {
-          props.updateBids(payload)
+            if(!isAutomatic){
+                updateAuction(payload);
+                if(payload.seller._id === JSON.parse(localStorage.getItem('auth')).user._id)setIsSeller(true);
+            }else{
+                updateAuction(payload);
+                if((payload.bids[0].bidder._id !== JSON.parse(localStorage.getItem('auth')).user._id) && (payload.bids[0].bid < autoBidPrice)){
+                    setTimeout(() => {
+                        onClickPlaceBid(Number(payload.bids[0].bid) + 1000);
+                    }, 2000);
+                }
+            }
         })
         return () => {
             socket.off('new bid')
@@ -119,13 +96,48 @@ function BidAuction() {
     })
 
     useEffect(() => {
-        let newValue = bidders.length === 0?auction.startingBid:bidders[bidders.length - 1].bidPrice;
+        const abortController = new AbortController()
+        const signal = abortController.signal;
+        if(sessionStorage.getItem('jwt') === null)navigate('/authentication/sign-in/basic');
+        read({auctionId: auctionId}, signal).then((data) => {
+            if (!data) {
+                navigate('/authentication/sign-in/basic');
+            } else {
+                console.log(data);
+                if(data.bids.length === 0){
+                    // if(new Date(data.bidEnd) < new Date(auction.bidEnd)){
+                    //     data.bidEnd = auction.bidEnd;   
+                    // }
+                    setAuction(data);
+                    setPrice(data.startingBid);
+                    setSeller(data.seller.name);
+                    if(data.seller._id === JSON.parse(localStorage.getItem('auth')).user._id)setIsSeller(true);
+                }else{
+                    // if(new Date(data.bidEnd) < new Date(auction.bidEnd)){
+                    //     data.bidEnd = auction.bidEnd;   
+                    // }
+                    setAuction(data);
+                    setPrice(data.bids[0].bid);
+                    setSeller(data.seller.name);
+                    if(data.seller._id === JSON.parse(localStorage.getItem('auth')).user._id)setIsSeller(true);
+                }
+            }
+        })
+        return function cleanup(){
+            abortController.abort()
+        }
+    }, [auctionId])
+
+    useEffect(() => {
+        let newValue = auction.bids.length === 0?auction.startingBid:auction.bids[0].bid;
         setEnableButton(parseInt(price)>parseInt(newValue)?true:false);
     },[price])
+
     const handleSetPrice = (val) => {
         setPrice(val);
         setUserPrice(val);
     }
+
     const onClickPlaceBid = (val) => {
         let newBid = {
             bid: val,
@@ -136,13 +148,37 @@ function BidAuction() {
             room: auctionId,
             bidInfo:  newBid
         })
-        setPrice(val);
+        setEnableButton(false);
     }
 
     const onClickOkBtn = () => {
         navigate('pages/landing-pages/rental');
     }
     
+    const setAutomaticFunc = () => {
+        setIsAutomatic(!isAutomatic);
+    }
+
+    const onClickPlaceBidAuto = (val) => {
+        setAutoBidPrice(val);
+    }
+
+    const updateAuction = (data) => {
+        // setAuction(data);
+        if(new Date(auction.bidEnd) - new Date() < 60000) {
+            let time1, time2;
+            time1 = new Date ();
+            time2 = new Date ( time1 );
+            time2.setMinutes ( time1.getMinutes() + 3 );
+            data.bidEnd = time2;
+            auction.bidEnd = time2;
+        }else{
+            data.bidEnd = auction.bidEnd;
+        }
+        setAuction(data);
+        setPrice(data.bids[0].bid);
+        setSeller(data.seller.name);
+    }
   return (
     <>
     <DefaultNavbar
@@ -283,24 +319,23 @@ function BidAuction() {
                 </Grid>
             </Grid>
             <Grid item xs={12} lg={5} md={5}>
-                <div>
                     <Accordion sx={{marginLeft: '20px'}}>
                         <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                         >
-                        <Typography
+                        <MKTypography
                             color="rgba(35, 149, 241)"
                             fontWeight='bold'
                             variant="h3"
                             px={3}
                         >
                             Details
-                        </Typography>
+                        </MKTypography>
                         </AccordionSummary>
                         <AccordionDetails px={3}>
-                        <Typography
+                        <MKTypography
                             color="black"
                             fontFamily='aria'
                             fontWeight='bold'
@@ -308,10 +343,9 @@ function BidAuction() {
                             px={3}
                         >
                             {auction.description}
-                        </Typography>
+                        </MKTypography>
                         </AccordionDetails>
                     </Accordion>
-                </div>
                 <br/>
                 <Grid container item xs={12} lg={12} md={12}>
                     <Grid  item xs={12} lg={12} md={12}>
@@ -331,8 +365,8 @@ function BidAuction() {
                         <Grid container item xs={12} lg={12} md={12}>
                             <Grid container item xs={12} lg={7} md={7}>
                                 <Grid item xs={12} lg={4} md={4}>
-                                    <MKTypography variant="h1" component="p" color="text" px={4} ml={1} sx={{marginTop: '4px'}}>
-                                        <AuctionCountdown  container timeEnd={new Date(auction.bidEnd)}/>
+                                    <MKTypography variant="h1" color="text" px={4} ml={1} sx={{marginTop: '4px'}}>
+                                        <AuctionCountdown  container timeEnd={`${new Date(auction.bidEnd)}`}/>
                                     </MKTypography>
                                     <MKTypography variant="h6" ml={4} mt={1}>
                                         remain time
@@ -371,7 +405,7 @@ function BidAuction() {
                                         mb={1}
                                         textGradient
                                     >
-                                        {bidders[bidders.length - 1]?bidders[bidders.length - 1]:'No'}
+                                        {auction.bids.length?auction.bids[0].bidder?auction.bids[0].bidder.name:'None':'None'}
                                     </MKTypography>
                                     <MKTypography
                                         color="success"
@@ -404,35 +438,54 @@ function BidAuction() {
                         </MKTypography>
                     </Card>
                     <Card ml={2} sx={{marginLeft: '20px', paddingLeft: '5px', padding: '10px', marginTop: '-10px', paddingTop: '12px'}}>
-                        <BidPanel enableButton={enableButton} defaultPrice={price} handleSetPrice={handleSetPrice} onClickPlaceBid={onClickPlaceBid}/>
+                        <BidPanel enableButton={enableButton} defaultPrice={price} handleSetPrice={handleSetPrice} setAutomaticFunc={setAutomaticFunc} onClickPlaceBidAuto={onClickPlaceBidAuto} onClickPlaceBid={onClickPlaceBid}/>
                     </Card>
-                    <br/>
                     </>}
-                    <Grid container item xs={12} lg={12} md={12} px={2} sx={{padding: '20px'}}>
-                        <Typography variant="h4" color="rgba(35, 149, 241)" sx={{mt: '12px'}}>All bids</Typography><br/>
-                        <Grid container spacing={4}>
-                            <Grid item xs={3} sm={3}>
-                                <Typography variant="subtitle1" color="rgba(35, 149, 241)">Bid ID</Typography>
-                            </Grid>
-                            <Grid item xs={4} sm={4}>
-                                <Typography variant="subtitle1" color="rgba(35, 149, 241)">Bid Time</Typography>
-                            </Grid>
-                            <Grid item xs={3} sm={3}>
-                                <Typography variant="subtitle1" color="rgba(35, 149, 241)">Bidder</Typography>
-                            </Grid>
-                            <Grid item xs={2} sm={2}>
-                                <Typography variant="subtitle1" color="rgba(35, 149, 241)">BidPrice</Typography>
-                            </Grid>
-                        </Grid> 
-                        {bidders.map((item, index) => {
-                        return <Grid container spacing={4} key={index}>
-                            <Grid item xs={5} sm={3}><Typography variant="body2" color="rgba(255,255,255,1)">{index + 1}</Typography></Grid>
-                            <Grid item xs={3} sm={4}><Typography variant="body2" color="rgba(255,255,255,1)">{new Date(item.bidtime).toLocaleString()}</Typography></Grid>
-                            <Grid item xs={2} sm={3}><Typography variant="body2" color="rgba(255,255,255,1)">{item.Email}</Typography></Grid>
-                            <Grid item xs={2} sm={2}><Typography variant="body2" color="rgba(255,255,255,1)">${item.bidPrice}</Typography></Grid>
-                        </Grid>
-                    })}
-                </Grid>    
+                        {auction.bids.length?
+                            <Grid container item xs={12} lg={12} md={12} px={2} sx={{padding: '20px'}}>
+                                <Card sx={{backgroundColor: 'rgba(71, 12, 97, 1)', zIndex: 4, marginLeft: '7px'}}>
+                                    <MKTypography 
+                                        color="info"
+                                        fontWeight='bold'
+                                        variant="h2"
+                                        px={2}
+                                        textGradient
+                                    >
+                                        All bids
+                                    </MKTypography>
+                                </Card>
+                                <Card sx={{marginTop: '-12px'}}>
+                                <Grid container xs={12} lg={12} md={12} sx={{padding: '25px'}}>
+                                    <Grid container spacing={4} xs={12} lg={12} md={12}>
+                                        <Grid item xs={3} sm={3} >
+                                            <MKTypography variant="h5" color="info">Bid ID</MKTypography>
+                                        </Grid>
+                                        <Grid item xs={4} sm={4}>
+                                            <MKTypography variant="h5" color="info">Bid Time</MKTypography>
+                                        </Grid>
+                                        <Grid item xs={3} sm={3}>
+                                            <MKTypography variant="h5" color="info">Bidder</MKTypography>
+                                        </Grid>
+                                        <Grid item xs={2} sm={2}>
+                                            <MKTypography variant="h5" color="info">Price</MKTypography>
+                                        </Grid>
+                                    </Grid> 
+                                    {auction.bids.map((item, index) => {
+                                        let color = index?'secondary': 'primary';
+                                        let bold = index?'': 'bold';
+                                        return (
+                                            <Grid container spacing={4} key={index} xs={12} lg={12} md={12}>
+                                                <Grid item xs={5} sm={3}><MKTypography variant="body2" justifyContent="center" color={color} fontWeight={bold}>{index + 1}</MKTypography></Grid>
+                                                <Grid item xs={3} sm={4}><MKTypography variant="body2" color={color} fontWeight={bold}>{new Date(item.time).toLocaleString()}</MKTypography></Grid>
+                                                <Grid item xs={2} sm={3}><MKTypography variant="body2" color={color} fontWeight={bold}>{item.bidder?item.bidder.name: 'None'}</MKTypography></Grid>
+                                                <Grid item xs={2} sm={2}><MKTypography variant="body2" color={color} fontWeight={bold}>${item.bid}</MKTypography></Grid>
+                                            </Grid>
+                                        )
+                                    })}
+                                </Grid>
+                                </Card>
+                            </Grid>:''
+                        }
             </Grid>
         </Grid>
     </Card>
@@ -453,11 +506,11 @@ function BidAuction() {
               <Divider sx={{ my: 0 }} />
               <MKBox p={2}>
                 <MKTypography variant="h2" color="secondary" fontWeight="regular">
-                    {bidders.length?'Congratulations!': 'Notification'}
+                    {auction.bids.length?'Congratulations!': 'Notification'}
                 </MKTypography>
                 <MKTypography variant="body2" color="secondary" fontWeight="regular">
-                    {bidders.length? <>
-                    Hi! {bidders[bidders.length - 1]}<br/>
+                    {auction.bids.length && auction.bids[auction.bids.length - 1].bidder? <>
+                    Hi! {auction.bids[auction.bids.length - 1].bidder.name}<br/>
                     You won this auction.
                     At this auction, for the price of {price} dollars, you won.<br/>
                     congratulations!. Would you like to continue participating in the auction?</>

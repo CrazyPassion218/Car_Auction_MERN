@@ -47,6 +47,7 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
           borderRadius="lg"
           shadow="md"
           width="100%"
+          height="200px"
           position="relative"
           zIndex={1}
         />

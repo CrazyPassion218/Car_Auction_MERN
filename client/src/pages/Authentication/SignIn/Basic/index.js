@@ -207,7 +207,7 @@ const toastTemplate = (
           autoHideDuration={3000}
           onClose={toggleSnackbar}
           message={toastTemplate}
-          action={toggleSnackbar}
+          // action={toggleSnackbar}
           sx={toastStyles}
         />
       </Card>

@@ -40,7 +40,7 @@
     "react-syntax-highlighter": "15.4.5",
     "rellax": "1.12.1",
     "socket.io": "^4.6.1",
-    "socket.io-client": "^4.6.1",
+    "socket.io-client": "^2.3.0",
     "swiper": "7.3.4",
     "typed.js": "2.0.12",
     "uuid": "8.3.2",

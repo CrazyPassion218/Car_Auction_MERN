@@ -47,15 +47,17 @@ function a11yProps(index) {
 
 
 export default function BidPanel(props) {
-    const { enableButton, defaultPrice, handleSetPrice, onClickPlaceBid } = props; 
+    const { enableButton, defaultPrice, handleSetPrice, onClickPlaceBid, onClickPlaceBidAuto,  setAutomaticFunc } = props; 
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
-    const [defaultValue, setDefaultValue] = React.useState('');
+    const [defaultValue, setDefaultValue] = React.useState(defaultPrice);
+    const [defaultValueAuto, setDefaultValueAuto] = React.useState(defaultPrice);
     const [onStart, setOnStart] = React.useState(false);
+    const [onStartAuto, setOnStartAuto] = React.useState(false);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
+    
     const handleChangeIndex = (index) => {
         setValue(index);
     };
@@ -63,18 +65,42 @@ export default function BidPanel(props) {
         setOnStart(true);
         setDefaultValue(defaultPrice);
     }
+    const onClickStartAuto = () => {
+        setOnStartAuto(!onStartAuto);
+        setDefaultValueAuto(defaultPrice);
+        setAutomaticFunc();
+    }
     const onClickNumberBtn1 = () => {
-        setDefaultValue(defaultValue + 1000);
-        handleSetPrice(defaultValue + 1000);
+        setDefaultValue(defaultPrice + 1000);
+        // handleSetPrice(defaultValue + 1000);
+    }
+    const onClickNumberBtn1Auto = () => {
+        setDefaultValueAuto(defaultValueAuto + 1000);
+        // handleSetPrice(defaultValue + 1000);
     }
     const onClickNumberBtn2 = () => {
-        setDefaultValue(defaultValue + 5000);
-        handleSetPrice(defaultValue + 5000);
+        setDefaultValue(defaultPrice + 5000);
+        // handleSetPrice(defaultValue + 5000);
+    }
+    const onClickNumberBtn2Auto = () => {
+        setDefaultValueAuto(defaultValueAuto + 5000);
+        // handleSetPrice(defaultValue + 5000);
     }
     const onClickNumberBtn3 = () => {
-        setDefaultValue(defaultValue + 10000);
-        handleSetPrice(defaultValue + 10000);
+        setDefaultValue(defaultPrice + 10000);
+        // handleSetPrice(defaultValue + 10000);
     }
+    const onClickNumberBtn3Auto = () => {
+        setDefaultValueAuto(defaultValueAuto + 10000);
+        // handleSetPrice(defaultValue + 10000);
+    }
+    React.useEffect(() => {
+        setDefaultValue(defaultPrice);
+        setDefaultValueAuto(defaultPrice);
+    },[])
+    React.useEffect(() => {
+        handleSetPrice(defaultValue);
+    }, [defaultValue])
     return (
         <Box sx={{ bgcolor: 'background.paper'}}>
             <Card>
@@ -94,9 +120,9 @@ export default function BidPanel(props) {
                 </AppBar>
             </Card>
             <SwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={value}
-            onChangeIndex={handleChangeIndex}
+                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                index={value}
+                onChangeIndex={handleChangeIndex}
             >
             <TabPanel value={value} index={0} dir={theme.direction}>
                 <Card sx={{border: '1px solid lightblue'}}>
@@ -136,7 +162,7 @@ export default function BidPanel(props) {
                             <Grid item xs={12} lg={6} md={6} sx={{padding: '15px'}}>
                                 {enableButton && onStart? 
                                 <div>
-                                <MKButton variant="gradient" color="info" fullWidth px={2} sx={{height: '100px'}} onClick={onClickPlaceBid(defaultValue)}>
+                                <MKButton variant="gradient" color="info" fullWidth px={2} sx={{height: '100px'}} onClick={() => onClickPlaceBid(defaultValue)}>
                                     Place bid
                                 </MKButton></div>: 
                                 <div><MKButton variant="gradient" color="info" fullWidth px={10} sx={{height: '100px'}} disabled>
@@ -150,32 +176,44 @@ export default function BidPanel(props) {
             <TabPanel value={value} index={1} dir={theme.direction}>
                 <Card sx={{border: '1px solid lightblue'}}>
                     <Grid container item xs={12} lg={12} md={12} sx={{padding: '30px', paddingTop: '10px'}}>
-                        <Grid container item xs={12} lg={12} md={12}>
+                        <Grid item xs={12} lg={10} md={10}>
                             <MKTypography variant="body2" color="info" >Here, you can bid <span style={{color: 'red', fontWeight: 'bold'}}>automatically.</span></MKTypography>
                         </Grid>
+                        <Grid item xs={12} lg={2} md={2}>
+                            <MKButton fullWidth px={2} sx={{padding: 0, color: 'red'}} onClick={onClickStartAuto}>ON/OFF</MKButton>
+                        </Grid>
                         <Grid item xs={12} lg={12} md={12}>
-                            <MKInput type="price" label="Price($)" fullWidth px={3} my={1} disabled/>
+                            <MKInput type="price" label="Price($)" value={defaultValueAuto} fullWidth px={3} my={1} disabled/>
                         </Grid>
                         <Grid container item xs={12} lg={12} md={12}>
                             <Grid container item xs={12} lg={6} md={6} sx={{padding: '15px'}}>
                                 <Grid item xs={12} lg={4} md={4} sx={{paddingRight: '10px'}}>
-                                    <MKButton variant="gradient" color="primary" fullWidth px={2} sx={{height: '100px'}}>+1000</MKButton>
+                                    {onStartAuto ? 
+                                        <MKButton variant="gradient" color="primary" fullWidth px={2} sx={{height: '100px'}} onClick={onClickNumberBtn1Auto}>+1000</MKButton>:
+                                        <MKButton variant="gradient" color="primary" fullWidth px={2} sx={{height: '100px'}} disabled>+1000</MKButton>
+                                    }
                                 </Grid>
                                 <Grid item xs={12} lg={4} md={4} sx={{paddingRight: '10px'}}>
-                                    <MKButton variant="gradient" color="warning" fullWidth px={2} sx={{height: '100px'}}>+5000</MKButton>
+                                    {onStartAuto ? 
+                                        <MKButton variant="gradient" color="warning" fullWidth px={2} sx={{height: '100px'}} onClick={onClickNumberBtn2Auto}>+5000</MKButton>:
+                                        <MKButton variant="gradient" color="warning" fullWidth px={2} sx={{height: '100px'}} disabled>+5000</MKButton>
+                                    }
                                 </Grid>
                                 <Grid item xs={12} lg={4} md={4} sx={{paddingRight: '10px'}}>
-                                    <MKButton variant="gradient" color="success" fullWidth px={2} sx={{height: '100px'}}>+10000</MKButton>
+                                    {onStartAuto ? 
+                                        <MKButton variant="gradient" color="success" fullWidth px={2} sx={{height: '100px'}} onClick={onClickNumberBtn3Auto}>+10000</MKButton>:
+                                        <MKButton variant="gradient" color="success" fullWidth px={2} sx={{height: '100px'}} disabled>+10000</MKButton>
+                                    }
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} lg={6} md={6} sx={{padding: '15px'}}>
-                                {enableButton? 
+                                {onStartAuto? 
                                 <div>
-                                <MKButton variant="gradient" color="light" fullWidth px={2} sx={{height: '100px'}}>
-                                    Set Bid Price
+                                <MKButton variant="gradient" color="light" fullWidth px={2} sx={{height: '100px'}} onClick={() => onClickPlaceBidAuto(defaultValueAuto)}>
+                                    Set AutoBid Price
                                 </MKButton></div>: 
                                 <div><MKButton variant="gradient" color="light" fullWidth px={10} sx={{height: '100px'}} disabled>
-                                    Set Bid Price
+                                    Set AutoBid Price
                                 </MKButton></div>}
                             </Grid>
                         </Grid>
@@ -192,4 +230,6 @@ BidPanel.propTypes = {
     defaultPrice:  PropTypes.number,
     handleSetPrice: PropTypes.func.isRequired,
     onClickPlaceBid: PropTypes.func.isRequired,
+    onClickPlaceBidAuto: PropTypes.func.isRequired,
+    setAutomaticFunc: PropTypes.func.isRequired,
 };
