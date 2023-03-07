@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
   },
   seller: {
     type: Boolean,
-    default: false
+    default: true
   },
   stripe_seller: {},
   stripe_customer: {},

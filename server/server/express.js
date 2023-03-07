@@ -41,7 +41,12 @@ app.use(compress())
 app.use(helmet())
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors());
-
+app.use((req,res,next)=>{
+  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+  res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
+  next(); 
+})
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
 // mount routes
