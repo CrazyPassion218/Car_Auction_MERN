@@ -3,8 +3,7 @@ import Auction from '../models/auction.model'
 export default (server) => {
     const io = require('socket.io').listen(server)
     io.on('connection', function(socket){
-        socket.emit("tung", { a: "aaa" });
-        console.log("I love you!");
+        console.log(socket.id);
         socket.on('join_auction_room', data => {
             console.log('join!!')
             socket.join(data.room)
@@ -16,7 +15,7 @@ export default (server) => {
         socket.on('new bid', data => {
             console.log('bid!!')
             console.log(data);
-            bid(data.bidInfo, data.room)
+            // bid(data.bidInfo, data.room)
         })
     })
     const bid = async (bid, auction) => {

@@ -1,4 +1,4 @@
 export const url = {
-    baseUrl: 'http://api.iauto.no',
-    port: '',
+    baseUrl: 'http://localhost:',
+    port: '3001',
 }
