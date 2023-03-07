@@ -1,7 +1,6 @@
 {
   "name": "cars-auction-server",
   "version": "1.0.0",
-  "type": "module",
   "description": "Cars Live Auction Backend",
   "author": "prettyblueberry",
   "license": "MIT",
