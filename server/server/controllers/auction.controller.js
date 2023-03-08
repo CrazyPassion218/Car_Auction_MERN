@@ -37,8 +37,10 @@ const create = (req, res) => {
     }
     try {
       let result = await auction.save()
+      console.log('created auction: ', result);
       res.status(200).json(result)
     }catch (err){
+      console.log('created auction: failed');
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err)
       })
@@ -120,8 +122,10 @@ const remove = async (req, res) => {
 const listOpen = async (req, res) => {
   try {
     let auctions = await Auction.find({ 'bidEnd': { $gt: new Date() }}).sort('bidStart').populate('seller', '_id name').populate('bids.bidder', '_id name')
+    console.log('read Auctions: ', auctions);
     res.json(auctions)
   } catch (err){
+    console.log('read Auctions: failed');
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err)
     })
