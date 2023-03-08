@@ -121,7 +121,7 @@ const remove = async (req, res) => {
 
 const listOpen = async (req, res) => {
   try {
-    let auctions = await Auction.find({ 'bidEnd': { $gt: new Date() }}).sort('bidStart').populate('seller', '_id name').populate('bids.bidder', '_id name')
+    let auctions = await Auction.find({}).sort('bidStart').populate('seller', '_id name').populate('bids.bidder', '_id name')
     console.log('read Auctions: ', auctions);
     res.json(auctions)
   } catch (err){
