@@ -30,7 +30,7 @@ import { url } from "constant/url";
 // import CloseIcon from "@mui/icons-material/Close";
 // const socket = require('socket.io-client')('http://localhost');
 const io = require('socket.io-client')
-const socket = io('http://localhost:3001');
+const socket = io('https://api.iauto.no');
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
