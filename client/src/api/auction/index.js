@@ -10,6 +10,7 @@ const create = async (params, credentials, auction) => {
         },
         body: auction
       })
+      console.log("create API:");
         return response.json()
       } catch(err) { 
         console.log(err)
@@ -22,6 +23,7 @@ const create = async (params, credentials, auction) => {
         method: 'GET',
         signal: signal
       })
+      console.log("read Auctions API:");
       return response.json()
     }catch(err) {
       console.log(err)

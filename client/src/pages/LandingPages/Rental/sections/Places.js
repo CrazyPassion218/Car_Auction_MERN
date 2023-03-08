@@ -80,8 +80,11 @@ const Places = () => {
     const signal = abortController.signal
     listOpen(signal).then((result) => {
       if (!result) {
+        console.log('read falied');
         // setRedirectToSignin(true)
       } else {
+        console.log('read success');
+        console.log(result);
         setAuctions(result);
       }
     })

@@ -31,7 +31,6 @@ import { url } from "constant/url";
 // const socket = require('socket.io-client')('http://localhost');
 const io = require('socket.io-client')
 const socket = io('https://api.iauto.no');
-
 function useInterval(callback, delay) {
     const savedCallback = useRef();
     // Remember the latest callback.

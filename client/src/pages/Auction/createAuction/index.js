@@ -176,6 +176,7 @@ function CreateAuction() {
                 if (data.error) {
                     setValues({...values, error: data.error})
                 } else {
+                    console.log("create Auction: ", data)
                     setValues({...values, error: ''})
                     setRedirect(true);
                 }
