@@ -34,10 +34,23 @@ import Faq from "pages/LandingPages/Rental/sections/Faq";
 import routes from "routes";
 import footerRoutes from "footer.routes";
 // Images
-import bgImage from "assets/images/motors.stylemixthemes.com/slider2.jpg";
+// import bgImage from "assets/images/motors.stylemixthemes.com/background.jpg";
+import brandImage from "assets/images/brands/brands2.png"
+import MKTypography from "components/MKTypography";
+import Header from "pages/Company/Pricing/sections/Header";
 
 function Rental() {
-  const brand = <span style={{ fontSize: "2.5rem", color: "#9595f7" }}>iAuto</span>;
+  const brand = 
+  <MKBox
+    component="img"
+    src={brandImage} 
+    borderRadius="lg"
+    // shadow="md"
+    width="50%"
+    height="50%"
+    position="relative"
+    zIndex={1}
+  />
   return (
     <>
       <DefaultNavbar
@@ -52,51 +65,36 @@ function Rental() {
         light
         brand={brand}
       />
+      <Header />
       <MKBox
-        minHeight="50vh"
-        width="100%"
-        sx={{
-          backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
-            `${linearGradient(
-              rgba(gradients.dark.main, 0.5),
-              rgba(gradients.dark.state, 0.5)
-            )}, url(${bgImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          display: "grid",
-          placeItems: "center",
-        }}
+          sx={{
+            height: '200px',
+            backgroundColor: 'rgba(20, 20, 15, 1)',
+            marginTop: '-15px',
+            zIndex: '3',
+          }}
       >
-        <Container>
-          <Grid
-            container
-            item
-            xs={12}
-            lg={8}
-            justifyContent="center"
-            sx={{ mx: "auto", textAlign: "center" }}
-          />
-        </Container>
+          <MKTypography>FEATURED ITMES</MKTypography>
       </MKBox>
-      <Card
-        sx={{
-          p: 2,
-          mx: { xs: 2, lg: 3 },
-          mt: -8,
-          mb: 4,
-          backgroundColor: ({ palette: { white }, functions: { rgba } }) => rgba(white.main, 0.8),
-          backdropFilter: "saturate(200%) blur(30px)",
-          boxShadow: ({ boxShadows: { xxl } }) => xxl,
-          overflow: "hidden",
-        }}
-      >
-        <Places />
-        <Testimonials />
-        <Faq />
-      </Card>
-      <MKBox pt={6} px={1} mt={6}>
-        <DefaultFooter content={footerRoutes} />
+      <MKBox>
+        <Grid container xs={12} md={12} lg={12} >
+          <Grid item xs={12} md={12} lg={12} >
+
+          </Grid>
+          <Grid item xs={12} md={12} lg={12} >
+
+          </Grid>
+          <Grid item xs={12} md={12} lg={12} >
+
+          </Grid>
+        </Grid>
       </MKBox>
+    <Places />
+    <Testimonials />
+    <Faq />
+    <MKBox pt={6} px={1} mt={6}>
+      <DefaultFooter content={footerRoutes} />
+    </MKBox>
     </>
   );
 }

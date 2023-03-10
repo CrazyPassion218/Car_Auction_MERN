@@ -37,8 +37,8 @@ function Header({ image, label, title, description, cards }) {
         sx={{
           backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
             `${linearGradient(
-              rgba(gradients.dark.main, 0.8),
-              rgba(gradients.dark.state, 0.8)
+              rgba(gradients.dark.main, 0),
+              rgba(gradients.dark.state, 0)
             )}, url(${image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -61,7 +61,7 @@ function Header({ image, label, title, description, cards }) {
             </MKTypography>
             <MKTypography
               variant="h1"
-              color="white"
+              color="info"
               mb={1}
               sx={({ breakpoints, typography: { size } }) => ({
                 [breakpoints.down("md")]: {

@@ -35,7 +35,6 @@ import MuiLink from "@mui/material/Link";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import MKButton from "components/MKButton";
-
 // Material Kit 2 PRO React examples
 import DefaultNavbarDropdown from "examples/Navbars/DefaultNavbar/DefaultNavbarDropdown";
 import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMobile";
@@ -81,25 +80,28 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
     return () => window.removeEventListener("resize", displayMobileNavbar);
   }, []);
 
-  const renderNavbarItems = routes.map(({ name, icon, href, route, collapse }) => (
-    <DefaultNavbarDropdown
-      key={name}
-      name={name}
-      icon={icon}
-      href={href}
-      route={route}
-      collapse={Boolean(collapse)}
-      onMouseEnter={({ currentTarget }) => {
-        if (collapse) {
-          setDropdown(currentTarget);
-          setDropdownEl(currentTarget);
-          setDropdownName(name);
-        }
-      }}
-      onMouseLeave={() => collapse && setDropdown(null)}
-      light={light}
-    />
-  ));
+  const renderNavbarItems = routes.map(({ name, icon, href, route, collapse }) => {
+    if(name !== 'account')
+    return (
+      <DefaultNavbarDropdown
+        key={name}
+        name={name}
+        icon={icon}
+        href={href}
+        route={route}
+        collapse={Boolean(collapse)}
+        onMouseEnter={({ currentTarget }) => {
+          if (collapse) {
+            setDropdown(currentTarget);
+            setDropdownEl(currentTarget);
+            setDropdownName(name);
+          }
+        }}
+        onMouseLeave={() => collapse && setDropdown(null)}
+        light={light}
+      />
+    );
+  });
 
   // Render the routes on the dropdown menu
   const renderRoutes = routes.map(({ name, collapse, columns, rowsPerColumn }) => {
@@ -476,9 +478,9 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
             py={transparent ? 1.5 : 0.75}
             pl={relative || transparent ? 0 : { xs: 0, lg: 1 }}
           >
-            <MKTypography variant="button" fontWeight="bold" color={light ? "white" : "dark"}>
+            {/* <MKTypography variant="button" fontWeight="bold" color={light ? "white" : "dark"}> */}
               {brand}
-            </MKTypography>
+            {/* </MKTypography> */}
           </MKBox>
           <MKBox
             color="inherit"
@@ -488,7 +490,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
           >
             {renderNavbarItems}
           </MKBox>
-          <MKBox ml={{ xs: "auto", lg: 0 }}>
+          {/* <MKBox ml={{ xs: "auto", lg: 0 }}>
             {action &&
               (action.type === "internal" ? (
                 <MKButton
@@ -521,7 +523,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                   {action.label}
                 </MKButton>
               ))}
-          </MKBox>
+          </MKBox> */}
           <MKBox
             display={{ xs: "inline-block", lg: "none" }}
             lineHeight={0}

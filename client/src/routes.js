@@ -47,43 +47,115 @@ import BidAuctionPage from "layouts/pages/AuctionPage/BidAuction";
 import CreateAuctionPage from "layouts/pages/AuctionPage/CreateAuction";
 
 const routes = [
+  // {
+  //   name: "pages",
+  //   icon: <Icon>dashboard</Icon>,
+  //   columns: 3,
+  //   rowsPerColumn: 2,
+  //   collapse: [
+  //     {
+  //       name: "landing pages",
+  //       collapse: [
+  //         {
+  //           name: "rental",
+  //           route: "/pages/landing-pages/rental",
+  //           component: <Rental />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "landing pages",
+  //       collapse: [
+  //         {
+  //           name: "bid auction",
+  //           route: "/pages/AuctionPage/BidAuction/:auctionId",
+  //           component: <BidAuctionPage />,
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       name: "landing pages",
+  //       collapse: [
+  //         {
+  //           name: "create auction",
+  //           route: "/pages/AuctionPage/CreateAuction",
+  //           component: <CreateAuctionPage />,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   {
-    name: "pages",
+    name: "HOME",
+    route: "/pages/landing-pages/rental",
     icon: <Icon>dashboard</Icon>,
     columns: 3,
     rowsPerColumn: 2,
+    component: <Rental />
+  },
+  {
+    name: "AUCTION",
+    icon: <Icon>diamond</Icon>,
     collapse: [
       {
-        name: "landing pages",
-        collapse: [
-          {
-            name: "rental",
-            route: "/pages/landing-pages/rental",
-            component: <Rental />,
-          },
-        ],
+        name: "AUCTION ROOM",
+        route: "/pages/AuctionPage/BidAuction/:auctionId",
+        component: <BidAuctionPage />,
       },
       {
-        name: "landing pages",
-        collapse: [
-          {
-            name: "bid auction",
-            route: "/pages/AuctionPage/BidAuction/:auctionId",
-            component: <BidAuctionPage />,
-          },
-        ],
+        name: "CREATE AUCTION",
+        route: "/pages/AuctionPage/CreateAuction",
+        component: <CreateAuctionPage />,
+      },
+    ]
+  },
+  {
+    name: "INVENTORY",
+    route: "/",
+    icon: <Icon>inventory</Icon>,
+    // columns: 2,
+    // rowsPerColumn: 3,
+    collapse: [
+      {
+        name: "STANDARD INVENTORY",
+        route: "/pages/landing-pages/rental",
+        component: <Rental />,
       },
       {
-        name: "landing pages",
-        collapse: [
-          {
-            name: "create auction",
-            route: "/pages/AuctionPage/CreateAuction",
-            component: <CreateAuctionPage />,
-          },
-        ],
+        name: "MODERN INVENTORY",
+        route: "/pages/landing-pages/rental",
+        component: <Rental />,
+      },
+      {
+        name: "SOLD INVENTORY",
+        route: "/pages/landing-pages/rental",
+        component: <Rental />,
       },
     ],
+  },
+  {
+    name: "NEWS",
+    route: "/",
+    icon: <Icon>feeds</Icon>,
+    columns: 3,
+    rowsPerColumn: 2,
+    component: <Rental />
+  },
+  {
+    name: "SHOP",
+    route: "/",
+    icon: <Icon>shop</Icon>,
+    columns: 3,
+    rowsPerColumn: 2,
+    component: <Rental />
+  },
+  {
+    name: "CONTACT",
+    route: "/",
+    icon: <Icon>message</Icon>,
+    columns: 3,
+    rowsPerColumn: 2,
+    component: <Rental />
   },
   {
     name: "account",

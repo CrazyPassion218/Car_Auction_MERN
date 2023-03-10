@@ -27,9 +27,9 @@ import "swiper/modules/navigation/navigation.min.css";
 import SliderHeader from "pages/Company/Pricing/components/Header";
 
 // Images
-import bg1 from "assets/images/bg2.jpg";
-import bg2 from "assets/images/bg.jpg";
-import bg3 from "assets/images/dg1.jpg";
+import bg1 from "assets/images/car/car.jpg";
+import bg2 from "assets/images/car/car5.jpg";
+import bg3 from "assets/images/car/car2.jpg";
 
 function Header() {
   // install SwiperJS modules
@@ -47,33 +47,33 @@ function Header() {
       <SwiperSlide>
         <SliderHeader
           image={bg1}
-          label="Pricing Plans"
-          title="Work with the rockets"
-          description="Wealth creation is an evolutionarily recent positive-sum game. Status is an old zero-sum game. Those attacking wealth creation are often just seeking status."
+          label="About our company"
+          title="The best Car service for all buyers in the world"
+          description="iAuto offers new and used vehicles as well as parts for fixing, updating, and maintaining your existing vehicle."
           cards={[
             {
               variant: "gradient",
               color: "info",
-              icon: "shuffle",
-              title: "Netflix's 'Shuffle Play' feature",
+              icon: "commute",
+              title: "Car service",
               description:
-                "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.",
+                "We offer new and used vehicles as well as parts for fixing, updating, and maintaining your existing vehicle.",
             },
             {
               variant: "contained",
               color: "info",
-              icon: "redeem",
-              title: "Landbot closes $8M Series",
+              icon: "gavel",
+              title: "Auction room",
               description:
-                "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.",
+                "Free companyies and people can make free bids. Anyone can win in the auction. Don't miss your chance to succeed.",
             },
             {
               variant: "contained",
               color: "info",
-              icon: "bookmarks",
-              title: "Brave web browser",
+              icon: "store",
+              title: "Car shopping",
               description:
-                "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.",
+                "This site offers all types of vehicles such as cars, trucks, classic cars, motorcycles, industrial vehicles and so on.",
             },
           ]}
         />
@@ -81,33 +81,33 @@ function Header() {
       <SwiperSlide>
         <SliderHeader
           image={bg2}
-          label="Our Team"
-          title="Work with the best"
-          description="Free people make free choices. Free choices mean you get unequal outcomes. You can have freedom, or you can have equal outcomes. You can’t have both."
+          label="About our company"
+          title="The best Online car auction service in the world"
+          description="Free companyies and people can make free bids. Anyone can win in the auction. Don't miss your chance to succeed."
           cards={[
             {
               variant: "contained",
               color: "primary",
-              icon: "shuffle_on",
-              title: "Netflix's 'Shuffle Play' feature",
+              icon: "timer",
+              title: "Auction room creation and reservation",
               description:
-                "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.",
+                "The companies and individual sellers can create and reservate the acution with their cars at any time.",
             },
             {
               variant: "gradient",
               color: "primary",
-              icon: "beenhere",
-              title: "Landbot closes $8M Series",
+              icon: "gavel",
+              title: "Manual or Automatic biddng",
               description:
-                "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.",
+                "The bidders can bid with manual or automatical method until the reservation time is over along their strategies",
             },
             {
               variant: "contained",
               color: "primary",
-              icon: "ballot",
-              title: "Brave web browser",
+              icon: "chat",
+              title: "Online chat between winner and seller",
               description:
-                "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.",
+                "Once the reservation time is over, winner can discuss about their requirements via chat room in this site.",
             },
           ]}
         />
@@ -115,33 +115,33 @@ function Header() {
       <SwiperSlide>
         <SliderHeader
           image={bg3}
-          label="Office Places"
-          title="Work from home"
-          description="You’re spending time to save money when you should be spending money to save time."
+          label="About our company"
+          title="The best Online Car shopping service"
+          description="Feel comfortable in this shop. Please come here and choose your favourite cars."
           cards={[
             {
               variant: "contained",
               color: "error",
-              icon: "tune",
-              title: "Netflix's 'Shuffle Play' feature",
+              icon: "search",
+              title: "Searching the vehicles",
               description:
-                "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.",
+                "The customers can search their favorite vehicles in this site. There are all kinds of vehicles, from cheap to expensive.",
             },
             {
               variant: "contained",
               color: "error",
-              icon: "settings_suggest",
-              title: "Landbot closes $8M Series",
+              icon: "forum",
+              title: "Free discussion via online chat",
               description:
-                "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.",
+                "The customers and sellers chat online to reach their agreement. This site offer the wonderful chat environment and they can use it freely.",
             },
             {
               variant: "gradient",
               color: "error",
-              icon: "compare",
+              icon: "approval",
               title: "Brave web browser",
               description:
-                "The Arctic Ocean freezes every winter and much of the sea-ice then thaws every summer, and that process will continue whatever.",
+                "The customers and sellers execute their trades. If you have any problems, please feel free to contact us.",
             },
           ]}
         />

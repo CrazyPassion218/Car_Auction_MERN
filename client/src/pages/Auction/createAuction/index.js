@@ -154,6 +154,7 @@ function CreateAuction() {
     }
 
     const clickSubmit = () => {
+        console.log(values);
         if(values.bidEnd < values.bidStart){
             setValues({...values, error: "Auction cannot end before it starts"})
         }
