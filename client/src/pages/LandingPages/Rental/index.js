@@ -47,7 +47,7 @@ import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import GroupsIcon from '@mui/icons-material/Groups';
-import FeaturedVehicles from "pages/Company/Pricing/sections/Testimonials";
+import FeaturedVehicles from "pages/LandingPages/Rental/sections/FeaturedVehicles";
 import ContactUs from "pages/Support/ContactUs/index"
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
@@ -62,10 +62,8 @@ function Rental() {
       const scrolled = document.documentElement.scrollTop;
       setOnProgress(scrolled);
     }
-  
     // Adding event listener on mounting
     window.addEventListener("scroll", computeProgress);
-  
     // Removing event listener upon unmounting
     return () => window.removeEventListener("scroll", computeProgress);
   });
@@ -249,18 +247,15 @@ function Rental() {
       </MKBox>
       <MKBox
           sx={{
-            height: '400px',
+            height: '680px',
             backgroundColor: 'rgba(16, 33 , 36, 1)',
             zIndex: '3',
             marginTop: '200px',
-            paddingLeft: '13%',
-            paddingRight: '13%',
-            paddingTop: '10px',
+            paddingLeft: '160px',
+            paddingRight: '160px',
+            paddingTop: '100px',
           }}
       >
-        <MKTypography variant="h1" color="white" sx={{marginLeft: '-10%', fontFamily: 'aria'}}>
-          Featured Vehicles
-        </MKTypography>
         <FeaturedVehicles />
       </MKBox>
       

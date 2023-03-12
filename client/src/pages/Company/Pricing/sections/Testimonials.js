@@ -92,84 +92,36 @@ function Testimonials() {
       >
         <SwiperSlide>
           <Grid container xs={12} md={12} lg={12}>
-            <Grid item xs={12} md={12} lg={12} display="flex" justifyContent="center"> 
-              <MKBox
-                component="img"
-                src={review1}
-                width="20%"
-                height="200px"
-                borderRadius="md"
-                shadow="md"
-                sx={{border: '1px solid black'}}
+            <Grid item xs={12} md={12} lg={12} display="flex" justifyContent="ce"> 
+              <ComplexReviewCard
+                image={review1}
               />
-              <MKBox
-                component="img"
-                src={review2}
-                width="20%"
-                height="200px"
-                borderRadius="md"
-                shadow="md"
-                sx={{border: '1px solid black'}}
+              <ComplexReviewCard
+                image={review2}
               />
-              <MKBox
-                component="img"
-                src={review3}
-                width="20%"
-                height="200px"
-                borderRadius="md"
-                shadow="md"
-                sx={{border: '1px solid black'}}
+              <ComplexReviewCard
+                image={review3}
               />
-              <MKBox
-              component="img"
-              src={review4}
-              width="20%"
-              height="200px"
-              borderRadius="md"
-              shadow="md"
-              sx={{border: '1px solid black'}}
-            />
             </Grid>
           </Grid>
         </SwiperSlide>
         <SwiperSlide>
-          <Grid container xs={12} md={12} lg={12} display="flex" justifyContent="center">
-            <MKBox
-              component="img"
-              src={review4}
-              width="20%"
-              height="200px"
-              borderRadius="md"
-              shadow="md"
-              sx={{border: '1px solid black'}}
-            />
-            <MKBox
-              component="img"
-              src={review5}
-              width="20%"
-              height="200px"
-              borderRadius="md"
-              shadow="md"
-              sx={{border: '1px solid black'}}
-            />
-            <MKBox
-              component="img"
-              src={review6}
-              width="20%"
-              height="200px"
-              borderRadius="md"
-              shadow="md"
-              sx={{border: '1px solid black'}}
-            />
-            <MKBox
-              component="img"
-              src={review1}
-              width="20%"
-              height="200px"
-              borderRadius="md"
-              shadow="md"
-              sx={{border: '1px solid black'}}
-            />
+          <Grid container xs={12} md={12} lg={12}>
+            <Grid item xs={12} md={4} lg={4}> 
+              <ComplexReviewCard
+                image={review4}
+              />
+            </Grid>
+            <Grid item xs={12} md={4} lg={4}> 
+              <ComplexReviewCard
+                image={review5}
+              />
+            </Grid>
+            <Grid item xs={12} md={4} lg={4}> 
+              <ComplexReviewCard
+                image={review6}
+              />
+            </Grid>
           </Grid>
         </SwiperSlide>
         <MKTypography
