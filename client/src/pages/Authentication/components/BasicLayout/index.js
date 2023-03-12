@@ -28,9 +28,19 @@ import SimpleFooter from "examples/Footers/SimpleFooter";
 
 // Material kit 2 PRO React page layout routes
 import routes from "routes";
+import brandImage from "assets/images/brands/brands2.png"
 
 function BasicLayout({ image, children }) {
-  const brand = <span style={{ fontSize: "2.5rem", color: "#9595f7" }}>iAuto</span>;
+  const brand = 
+  <MKBox
+    component="img"
+    src={brandImage} 
+    borderRadius="lg"    // shadow="md"
+    width="50%"
+    height="50%"
+    position="relative"
+    zIndex={1}
+  />
   return (
     <>
       <DefaultNavbar
@@ -56,8 +66,8 @@ function BasicLayout({ image, children }) {
           backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
             image &&
             `${linearGradient(
-              rgba(gradients.dark.main, 0.6),
-              rgba(gradients.dark.state, 0.6)
+              rgba(gradients.dark.main, 0.2),
+              rgba(gradients.dark.state, 0.2)
             )}, url(${image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",

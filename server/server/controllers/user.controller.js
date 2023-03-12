@@ -10,16 +10,20 @@ const myStripe = stripe(config.stripe_test_secret_key);
 
 const create = async (req, res) => {
   const user = new User(req.body);
-  try {
-    await user.save();
-    return res.status(200).json({
-      message: "Successfully signed up!",
-    });
-  } catch (err) {
-    return res.status(400).json({
-      error: errorHandler.getErrorMessage(err),
-    });
-  }
+  const result = User.find({email : req.body.email})
+  .then((data) => {
+    if(data.length){
+      return res.status(200).json({
+        message: "This email already used.",
+      });
+    }else{
+      user.save();
+      res.status(200).json({
+        message: "Successfully signed up!",
+      });
+    }
+  })
+  return result;
 };
 
 /**

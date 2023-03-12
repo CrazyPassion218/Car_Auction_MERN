@@ -35,7 +35,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Icon from "@material-ui/core/Icon";
 // Images
-import bgImage from "assets/images/motors.stylemixthemes.com/slider2.jpg";
+import bgImage from "assets/images/car/car1.jpg";
 
 function Cover() {
   const [values, setValues] = useState({
@@ -61,7 +61,11 @@ function Cover() {
         if (data.error) {
           setValues({ ...values, error: data.error });
         } else {
-          setValues({ ...values, error: "", open: true });
+          if(data.message === "This email already used."){
+            setValues({ ...values, error: data.message });
+          }else{
+            setValues({ ...values, error: "", open: true });
+          }
         }
       });
     }
