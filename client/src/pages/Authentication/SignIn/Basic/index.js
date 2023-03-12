@@ -45,17 +45,18 @@ import Snackbar from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
 
 const toastStyles = ({
-  palette: { info },
+  palette: { success },
   borders: { borderRadius },
   typography: { size },
   boxShadows: { lg },
 }) => ({
   "& .MuiPaper-root": {
-    backgroundColor: info.main,
+    backgroundColor: success.main,
     borderRadius: borderRadius.lg,
-    fontSize: size.sm,
-    fontWeight: 400,
+    fontSize: size.lg,
+    fontWeight: 300,
     boxShadow: lg,
+    mt: 8,
     px: 2,
     py: 0.5,
   },
@@ -98,8 +99,8 @@ const handleChange = name => event => {
 }
 const toggleSnackbar = () => setShowMoadl(!showModal);
 const toastTemplate = (
-  <MKBox display="flex" justifyContent="space-between" alignItems="center" color="white">
-    Successfully SignIn!
+  <MKBox display="flex" justifyContent="start" alignItems="center" color="white">
+    You have successfully signed In !
     <CloseIcon
       fontSize="medium"
       sx={{ ml: 4, mr: -1, cursor: "pointer" }}
@@ -203,7 +204,7 @@ const toastTemplate = (
           </MKBox>
         </MKBox>
         <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
           open={showModal}
           autoHideDuration={3000}
           onClose={toggleSnackbar}
