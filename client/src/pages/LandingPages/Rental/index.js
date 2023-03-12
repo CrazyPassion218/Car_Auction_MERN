@@ -103,7 +103,7 @@ function Rental() {
             borderRadius="lg"
             // shadow="md"
             width="40%"
-            height="40%"
+            height="33%"
             mt={15}
             ml={30}
             zIndex={1}
@@ -117,7 +117,7 @@ function Rental() {
             borderRadius="lg"
             // shadow="md"
             width="40%"
-            height="40%"
+            height="33%"
             ml={60}
             mt={-12}
             zIndex={2}
@@ -130,7 +130,7 @@ function Rental() {
             borderRadius="lg"
             // shadow="md"
             width="40%"
-            height="40%"
+            height="33%"
             mt={-12}
             ml={30}
             zIndex={1}
@@ -224,47 +224,18 @@ function Rental() {
       </MKBox>
       <MKBox
           sx={{
-            height: '80px',
+            height: '400px',
             backgroundColor: 'rgba(16, 33 , 36, 1)',
             zIndex: '3',
             marginTop: '200px',
-            // marginLeft: '50px',
-            // marginRight: '50px',
             paddingLeft: '13%',
             paddingRight: '13%',
             paddingTop: '10px',
-            // border: '7px solid rgba(0, 0, 0, 1)'
           }}
       >
         <MKTypography variant="h1" color="white" sx={{marginLeft: '-10%', fontFamily: 'aria'}}>
           Featured Vehicles
         </MKTypography>
-      </MKBox>
-      <MKBox
-          sx={{
-            height: '60px',
-            backgroundColor: 'rgba(16, 33 , 36, 0.6)',
-            zIndex: '3',
-            // marginLeft: '80px',
-            // marginRight: '80px',
-            marginTop: '20px',
-            paddingLeft: '13%',
-            paddingRight: '13%',
-            // border: '7px solid rgba(0, 0, 0, 1)',
-          }}
-      />
-      <MKBox
-          sx={{
-            height: '200px',
-            backgroundColor: 'rgba(16, 33 , 36, 1)',
-            zIndex: '3',
-            // marginLeft: '100px',
-            marginTop: '40px',
-            paddingLeft: '13%',
-            paddingRight: '13%',
-            border: '1px solid rgba(0, 0, 0, 1)',
-          }}
-      >
         <FeaturedVehicles />
       </MKBox>
       

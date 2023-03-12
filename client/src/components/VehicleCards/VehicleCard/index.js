@@ -66,6 +66,7 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
     textAlign: "center",
     opacity: 0.5,
     cursor: "pointer",
+    // boxShadow: '3',
     transition: "opacity 0.15s ease",
 
     "&:hover, &:focus": {
@@ -92,8 +93,9 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
             navigation.init();
             navigation.update();
           }}
-          autoplay={{ delay: 7000 * Math.random()}}
-          speed={800}
+          // autoplay={{ delay: 7000 * Math.random()}}
+          // autoplay='none'
+          // speed={800}
           spaceBetween={0}
           slidesPerView={1}
           loop
@@ -105,7 +107,7 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
                 // src={  }
                 src={`data:${image.contentType[0]};base64,${image.data[0]}`} 
                 alt={title}
-                borderRadius="lg"
+                borderRadius="none"
                 shadow="md"
                 width="100%"
                 height="200px"
@@ -122,7 +124,7 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
                 // src={  }
                 src={`data:${image.contentType[1]};base64,${image.data[1]}`} 
                 alt={title}
-                borderRadius="lg"
+                borderRadius="none"
                 shadow="md"
                 width="100%"
                 height="200px"
@@ -139,7 +141,7 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
                 // src={  }
                 src={`data:${image.contentType[2]};base64,${image.data[2]}`} 
                 alt={title}
-                borderRadius="lg"
+                borderRadius="none"
                 shadow="md"
                 width="100%"
                 height="200px"
@@ -156,7 +158,7 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
                 // src={  }
                 src={`data:${image.contentType[3]};base64,${image.data[3]}`} 
                 alt={title}
-                borderRadius="lg"
+                borderRadius="none"
                 shadow="md"
                 width="100%"
                 height="200px"
@@ -172,7 +174,14 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
             sx={{
               ...navigationStyles,
               left: 0,
+              boxShadow: 6,
+              color: 'rgba(255, 255, 255, 1)',
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              top: '40%',
+              width: '30px',
+              height: '30px'
             }}
+            
             ref={navigationPrevRef}
           >
             <Icon>chevron_left</Icon>
@@ -183,6 +192,12 @@ function VehicleCard({ image, title, description, vehicleInfo, action }) {
             sx={{
               ...navigationStyles,
               right: 0,
+              boxShadow: 6,
+              color: 'rgba(255, 255, 255, 1)',
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              top: '40%',
+              width: '30px',
+              height: '30px'
             }}
             ref={navigationNextRef}
           >

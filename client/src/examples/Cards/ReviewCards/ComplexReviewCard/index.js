@@ -33,8 +33,8 @@ function ComplexReviewCard({ image, color, title, review, author }) {
             component="img"
             src={image}
             alt={title}
-            width="100%"
-            height="300px"
+            width="70%"
+            height="200px"
             borderRadius="md"
             shadow="md"
             sx={{border: '1px solid black'}}
