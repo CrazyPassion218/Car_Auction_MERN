@@ -36,7 +36,6 @@ import footerRoutes from "footer.routes";
 // Images
 // import bgImage from "assets/images/motors.stylemixthemes.com/background.jpg";
 import brandImage from "assets/images/brands/brands2.png"
-import advantageImage from "assets/images/auction/advantage.jpg";
 import auction2 from "assets/images/auction/10.jpg";
 import auction1 from "assets/images/auction/1.jpg";
 import auction3 from "assets/images/auction/5.jpg";
@@ -48,14 +47,17 @@ import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import GroupsIcon from '@mui/icons-material/Groups';
+import FeaturedVehicles from "pages/Company/Pricing/sections/Testimonials";
+import ContactUs from "pages/Support/ContactUs/index"
+import MKInput from "components/MKInput";
+import MKButton from "components/MKButton";
 
 function Rental() {
   const brand = 
   <MKBox
     component="img"
     src={brandImage} 
-    borderRadius="lg"
-    // shadow="md"
+    borderRadius="lg"    // shadow="md"
     width="50%"
     height="50%"
     position="relative"
@@ -63,30 +65,33 @@ function Rental() {
   />
   return (
     <>
-      <DefaultNavbar
-        routes={routes}
-        action={{
-          type: "internal",
-          route: "/",
-          label: "sign in",
-          color: "info",
-        }}
-        transparent
-        light
-        brand={brand}
-      />
+      <MKBox position="fixed" top="0.5rem" width="100%" zIndex={5} sx={{backgroundColor: 'red'}}>
+        <DefaultNavbar
+          routes={routes}
+          action={{
+            type: "internal",
+            route: "/",
+            label: "sign in",
+            color: "info",
+          }}
+          transparent
+          light
+          brand={brand}
+        />
+      </MKBox>
       <Header />
-      <Card
+      <MKBox
           sx={{
-            height: '80px',
-            backgroundColor: 'rgba(20, 20, 15, 1)',
+            height: '150px',
+            backgroundColor: 'rgba(16, 33, 39, 1)',
             marginTop: '-15px',
             zIndex: '3',
+            marginTop: '-150px'
           }}
       />
       <MKBox sx={{display: 'flex', justifyContent: 'center'}} mt={10}>
-        <MKTypography variant="h1" color="info">
-          Why Auction for Buying Car ?<br/>
+        <MKTypography variant="h1" color="black" fontFamily="aria">
+          Why Auction for Buying Car?<br/>
         </MKTypography>
       </MKBox>
       <MKBox>
@@ -102,6 +107,7 @@ function Rental() {
             mt={15}
             ml={30}
             zIndex={1}
+            sx={{border: '1px solid black'}}
             position="relative"
           />
           <br/>
@@ -115,6 +121,7 @@ function Rental() {
             ml={60}
             mt={-12}
             zIndex={2}
+            sx={{border: '1px solid black'}}
             position="relative"
           /><br/>
           <MKBox
@@ -127,10 +134,11 @@ function Rental() {
             mt={-12}
             ml={30}
             zIndex={1}
+            sx={{border: '1px solid black'}}
             position="relative"
           />
           </Grid>
-          <Grid item xs={12} md={6} lg={6}>
+          <Grid item xs={12} md={6} lg={6} sx={{paddingRight: '15%', paddingLeft: '5%'}}>
             <Grid container xs={12} md={12} lg={12} sx={{marginTop: '180px'}}>
               <Grid item xs={12} md={1} lg={1} >
                 <ManageSearchIcon
@@ -139,8 +147,11 @@ function Rental() {
                 />
               </Grid>
               <Grid xs={12} md={11} lg={11} sx={{paddingRight: '15%'}}>
-                <MKTypography variant="h3" color="info">
-                Buyers often find rare items and can usually take home their purchase right away from an onsite auction.
+                <MKTypography variant="h3" color="black" sx={{fontFamily: 'aria'}}>
+                  Buyers often find rare items.
+                </MKTypography>
+                <MKTypography variant="body2" color="black" sx={{paddingRight: '15%', fontFamily: 'aria'}}>
+                  Buyers often find rare items and can usually take home their purchase right away from an onsite auction.
                 </MKTypography>
               </Grid>
             </Grid>
@@ -152,8 +163,11 @@ function Rental() {
                 />
               </Grid>
               <Grid xs={12} md={11} lg={11} sx={{paddingRight: '15%'}}>
-                <MKTypography variant="h3" color="info">
-                Sellers at auction can usually be assured that their property will sell on a certain day.
+                <MKTypography variant="h3" color="black" sx={{fontFamily: 'aria'}}>
+                  Sellers at auction can usually be assured.
+                </MKTypography>
+                <MKTypography variant="body2" color="black" sx={{paddingRight: '15%', fontFamily: 'aria'}}>
+                  Sellers at auction can usually be assured that their property will sell on a certain day.
                 </MKTypography>
               </Grid>
             </Grid>
@@ -165,7 +179,10 @@ function Rental() {
                 />
               </Grid>
               <Grid xs={12} md={11} lg={11} >
-                <MKTypography variant="h3" color="info" sx={{paddingRight: '15%'}}>
+                <MKTypography variant="h3" color="black" sx={{paddingRight: '15%', fontFamily: 'aria'}}>
+                  Bidders have a great time.
+                </MKTypography>
+                <MKTypography variant="body2" color="black" sx={{paddingRight: '15%', fontFamily: 'aria'}}>
                   Bidders have a great time, even if they don’t always get their chosen item.
                 </MKTypography>
               </Grid>
@@ -178,7 +195,10 @@ function Rental() {
                 />
               </Grid>
               <Grid xs={12} md={11} lg={11} >
-                <MKTypography variant="h3" color="info" sx={{paddingRight: '15%'}}>
+                <MKTypography variant="h3" color="black" sx={{paddingRight: '15%', fontFamily: 'aria'}}>
+                  Spectators at auction enjoy an exciting event.
+                </MKTypography>
+                <MKTypography variant="bodys" color="black" sx={{paddingRight: '15%', fontFamily: 'aria'}}>
                   Spectators at auction enjoy an exciting event and seeing what types of items are offered in auctions these days.
                 </MKTypography>
               </Grid>
@@ -191,7 +211,10 @@ function Rental() {
                 />
               </Grid>
               <Grid xs={12} md={11} lg={11} >
-                <MKTypography variant="h3" color="info" sx={{paddingRight: '15%'}}>
+                <MKTypography variant="h3" color="black" sx={{paddingRight: '15%', fontFamily: 'aria'}}>
+                  Auctions are a community event.
+                </MKTypography>
+                <MKTypography variant="body2" color="black" sx={{paddingRight: '15%', fontFamily: 'aria'}}>
                   Auctions are a community event. People see friends and meet new people.
                 </MKTypography>
               </Grid>
@@ -199,22 +222,77 @@ function Rental() {
           </Grid>
         </Grid>
       </MKBox>
-      <Card
+      <MKBox
           sx={{
-            height: '500px',
-            backgroundColor: 'rgba(20, 20, 15, 1)',
+            height: '80px',
+            backgroundColor: 'rgba(16, 33 , 36, 1)',
             zIndex: '3',
-            marginTop: '200px'
+            marginTop: '200px',
+            // marginLeft: '50px',
+            // marginRight: '50px',
+            paddingLeft: '13%',
+            paddingRight: '13%',
+            paddingTop: '10px',
+            // border: '7px solid rgba(0, 0, 0, 1)'
           }}
       >
-        <MKTypography variant="h1" color="white" sx={{marginTop: '80px', marginLeft: '5%'}}>
-          Newly Added Vehicles
+        <MKTypography variant="h1" color="white" sx={{marginLeft: '-10%', fontFamily: 'aria'}}>
+          Featured Vehicles
         </MKTypography>
-      </Card>
+      </MKBox>
+      <MKBox
+          sx={{
+            height: '60px',
+            backgroundColor: 'rgba(16, 33 , 36, 0.6)',
+            zIndex: '3',
+            // marginLeft: '80px',
+            // marginRight: '80px',
+            marginTop: '20px',
+            paddingLeft: '13%',
+            paddingRight: '13%',
+            // border: '7px solid rgba(0, 0, 0, 1)',
+          }}
+      />
+      <MKBox
+          sx={{
+            height: '200px',
+            backgroundColor: 'rgba(16, 33 , 36, 1)',
+            zIndex: '3',
+            // marginLeft: '100px',
+            marginTop: '40px',
+            paddingLeft: '13%',
+            paddingRight: '13%',
+            border: '1px solid rgba(0, 0, 0, 1)',
+          }}
+      >
+        <FeaturedVehicles />
+      </MKBox>
+      
     <Places />
+    <MKBox
+      sx={{
+        height: '80px',
+        backgroundColor: 'rgba(0, 0, 130, 0.3)',
+        zIndex: '3',
+        marginTop: '150px',
+        paddingLeft: '13%',
+        paddingRight: '13%',
+      }}
+    >
+        <MKTypography variant="h1" color="white" sx={{marginLeft: '3%', fontFamily: 'aria'}}>Place where anybody can take part in auction</MKTypography>
+    </MKBox>
     <Testimonials />
-    <Faq />
-    <MKBox pt={6} px={1} mt={6}>
+    <MKBox sx={{backgroundColor: 'rgba(100,100,100,0)'}}>'
+    <Grid container xs={12} lg={12} md={12}>
+      <Grid item xs={12} lg={8} md={8}>
+        <Faq />
+      </Grid>
+      <Grid item xs={12} lg={4} md={4}>
+        <ContactUs/>
+      </Grid>
+    </Grid>
+    </MKBox>
+    <MKBox pt={6} px={1} mt={6} sx={{backgroundColor: "rgba(35, 34 , 45, 1)"}}>
       <DefaultFooter content={footerRoutes} />
     </MKBox>
     </>

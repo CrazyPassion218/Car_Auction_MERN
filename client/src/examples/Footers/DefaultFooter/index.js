@@ -36,10 +36,10 @@ function DefaultFooter({ content }) {
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} sx={{ ml: "auto", mb: 3 }}>
             <MKBox>
-              <Link to={brand.route}>
+              {/* <Link to={brand.route}>
                 <MKBox component="img" src={brand.image} alt={brand.name} maxWidth="2rem" mb={2} />
-              </Link>
-              <MKTypography variant="h6">{brand.name}</MKTypography>
+              </Link> */}
+              <MKTypography variant="h1" color="info" fontFamily="aria" >{brand.name}</MKTypography>
             </MKBox>
             <MKBox display="flex" alignItems="center" mt={3}>
               {socials.map(({ icon, link }, key) => (
@@ -50,7 +50,7 @@ function DefaultFooter({ content }) {
                   target="_blank"
                   rel="noreferrer"
                   variant="h5"
-                  color="dark"
+                  color="white"
                   opacity={0.8}
                   mr={key === socials.length - 1 ? 0 : 2.5}
                 >
@@ -67,6 +67,12 @@ function DefaultFooter({ content }) {
                 fontWeight="bold"
                 textTransform="capitalize"
                 mb={1}
+                color="white"
+                sx={{
+                  fontSize: "18px",
+                  fontWeight: 'regular',
+                  fontFamily: 'Aria'
+                }}
               >
                 {title}
               </MKTypography>
@@ -82,6 +88,7 @@ function DefaultFooter({ content }) {
                         variant="button"
                         fontWeight="regular"
                         textTransform="capitalize"
+                        color="secondary"
                       >
                         {name}
                       </MKTypography>
@@ -92,6 +99,7 @@ function DefaultFooter({ content }) {
                         variant="button"
                         fontWeight="regular"
                         textTransform="capitalize"
+                        color="secondary"
                       >
                         {name}
                       </MKTypography>

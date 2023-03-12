@@ -27,45 +27,169 @@ import MuiLink from "@mui/material/Link";
 
 // Material Kit 2 PRO React components
 import MKBox from "components/MKBox";
-import MKTypography from "components/MKTypography";
 import MKButton from "components/MKButton";
 
 import AddRoadIcon from "@mui/icons-material/AddRoad";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import { useRef } from "react";
+
+// SwiperJS
+import SwiperCore, { Autoplay, Navigation } from "swiper";
+
+// SwiperJS react components
+import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
+import Grid from "@mui/material/Grid";
+// SwiperJS styles
+import "swiper/swiper.min.css";
+import "swiper/modules/navigation/navigation.min.css";
+
+// @mui material components
+import Container from "@mui/material/Container";
+import Icon from "@mui/material/Icon";
+
+// Material Kit 2 PRO React components
+import MKTypography from "components/MKTypography";
 import { Avatar } from "@mui/material";
 // eslint-disable-next-line react/prop-types
 function VehicleCard({ image, title, description, vehicleInfo, action }) {
+
+  const navigationStyles = {
+    position: "absolute",
+    top: 0,
+    zIndex: 1,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "15%",
+    height: "100%",
+    textAlign: "center",
+    opacity: 0.5,
+    cursor: "pointer",
+    transition: "opacity 0.15s ease",
+
+    "&:hover, &:focus": {
+      opacity: 1,
+    },
+  };
+
+  // SwiperJS navigation buttons ref
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
   return (
-    <Card>
+    <Card
+      sx={{border: '1px solid black'}}
+    >
       <MKBox position="relative" borderRadius="lg" mx={2} mt={-3}>
-        <MKBox
-          component="img"
-          // src={  }
-          src={`data:${image.contentType[0]};base64,${image.data[0]}`} 
-          alt={title}
-          borderRadius="lg"
-          shadow="md"
-          width="100%"
-          height="200px"
-          position="relative"
-          zIndex={1}
-        />
-        <MKBox
-          borderRadius="lg"
-          shadow="md"
-          width="100%"
-          height="100%"
-          position="absolute"
-          left={0}
-          top={0}   
-          sx={{
-            backgroundImage: `data:${image.contentType[0]};base64,${image.data[0]}`,
-            transform: "scale(0.94)",
-            filter: "blur(12px)",
-            backgroundSize: "cover",
+        
+      <MKBox position="relative">
+        <Swiper
+          onInit={({ params, navigation }) => {
+            const { navigation: nav } = params;
+
+            nav.prevEl = navigationPrevRef.current;
+            nav.nextEl = navigationNextRef.current;
+            navigation.init();
+            navigation.update();
           }}
-        />
+          autoplay={{ delay: 7000 * Math.random()}}
+          speed={800}
+          spaceBetween={0}
+          slidesPerView={1}
+          loop
+        >
+          <SwiperSlide>
+            <Grid xs={12} md={12} lg={12}>
+              <MKBox
+                component="img"
+                // src={  }
+                src={`data:${image.contentType[0]};base64,${image.data[0]}`} 
+                alt={title}
+                borderRadius="lg"
+                shadow="md"
+                width="100%"
+                height="200px"
+                position="relative"
+                border="1px solid black"
+                zIndex={1}
+              />
+            </Grid>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Grid container xs={12} md={12} lg={12}>
+              <MKBox
+                component="img"
+                // src={  }
+                src={`data:${image.contentType[1]};base64,${image.data[1]}`} 
+                alt={title}
+                borderRadius="lg"
+                shadow="md"
+                width="100%"
+                height="200px"
+                border="1px solid black"
+                position="relative"
+                zIndex={1}
+              />
+            </Grid>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Grid container xs={12} md={12} lg={12}>
+              <MKBox
+                component="img"
+                // src={  }
+                src={`data:${image.contentType[2]};base64,${image.data[2]}`} 
+                alt={title}
+                borderRadius="lg"
+                shadow="md"
+                width="100%"
+                height="200px"
+                border="1px solid black"
+                position="relative"
+                zIndex={1}
+              />
+            </Grid>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Grid container xs={12} md={12} lg={12}>
+              <MKBox
+                component="img"
+                // src={  }
+                src={`data:${image.contentType[3]};base64,${image.data[3]}`} 
+                alt={title}
+                borderRadius="lg"
+                shadow="md"
+                width="100%"
+                height="200px"
+                border="1px solid black"
+                position="relative"
+                zIndex={1}
+              />
+            </Grid>
+          </SwiperSlide>
+          <MKTypography
+            variant="h2"
+            color="dark"
+            sx={{
+              ...navigationStyles,
+              left: 0,
+            }}
+            ref={navigationPrevRef}
+          >
+            <Icon>chevron_left</Icon>
+          </MKTypography>
+          <MKTypography
+            variant="h2"
+            color="dark"
+            sx={{
+              ...navigationStyles,
+              right: 0,
+            }}
+            ref={navigationNextRef}
+          >
+            <Icon>chevron_right</Icon>
+          </MKTypography>
+        </Swiper>
+      </MKBox>
       </MKBox>
       <MKBox p={3} mt={-2}>
         <MKTypography display="inline" variant="h6" fontWeight="bold">

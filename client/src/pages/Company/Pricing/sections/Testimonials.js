@@ -37,10 +37,13 @@ import MKTypography from "components/MKTypography";
 import ComplexReviewCard from "examples/Cards/ReviewCards/ComplexReviewCard";
 
 // Images
-import review1 from "assets/images/examples/clem-onojegaw.jpg";
-import review2 from "assets/images/examples/studio-3.jpg";
-import logoSpotify from "assets/images/logos/small-logos/logo-spotify.svg";
-import logoSlack from "assets/images/logos/small-logos/logo-slack.svg";
+import review1 from "assets//images/auction/classic3.jpg";
+import review2 from "assets/images/auction/classic5.jpg";
+import review3 from "assets/images/auction/classic2.jpg";
+import review4 from "assets/images/auction/modern.jpg";
+import review5 from "assets/images/auction/8.jpg";
+import review6 from "assets/images/car/car4.jpg";
+import Grid from "@mui/material/Grid";
 
 function Testimonials() {
   // install SwiperJS modules
@@ -71,7 +74,7 @@ function Testimonials() {
   const navigationNextRef = useRef(null);
 
   return (
-    <MKBox py={8} position="relative">
+    <MKBox position="relative" sx={{marginTop: '-120px'}}>
       <Swiper
         onInit={({ params, navigation }) => {
           const { navigation: nav } = params;
@@ -88,36 +91,46 @@ function Testimonials() {
         loop
       >
         <SwiperSlide>
-          <Container>
-            <ComplexReviewCard
-              image={review1}
-              title="Excelent payment service. You guys are the best!"
-              review="Let the brain, muscles, nerves, every part of your body, be full of that idea, and just leave every other idea alone. This is the way to success."
-              author={{
-                logo: logoSpotify,
-                name: "Mathew Glock",
-                role: "Marketing Manager - Spotify",
-              }}
-            />
-          </Container>
+          <Grid container xs={12} md={12} lg={12}>
+            <Grid item xs={12} md={4} lg={4}> 
+              <ComplexReviewCard
+                image={review1}
+              />
+            </Grid>
+            <Grid item xs={12} md={4} lg={4}> 
+              <ComplexReviewCard
+                image={review2}
+              />
+            </Grid>
+            <Grid item xs={12} md={4} lg={4}> 
+              <ComplexReviewCard
+                image={review3}
+              />
+            </Grid>
+          </Grid>
         </SwiperSlide>
         <SwiperSlide>
-          <Container>
-            <ComplexReviewCard
-              image={review2}
-              title="Awesome services! Fast and secure."
-              review="Wealth creation is an evolutionarily recent positive-sum game. Status is an old zero-sum game. Those attacking wealth creation are often just seeking status."
-              author={{
-                logo: logoSlack,
-                name: "Mathew Glock",
-                role: "CFO - Slack",
-              }}
-            />
-          </Container>
+          <Grid container xs={12} md={12} lg={12}>
+            <Grid item xs={12} md={4} lg={4}> 
+              <ComplexReviewCard
+                image={review4}
+              />
+            </Grid>
+            <Grid item xs={12} md={4} lg={4}> 
+              <ComplexReviewCard
+                image={review5}
+              />
+            </Grid>
+            <Grid item xs={12} md={4} lg={4}> 
+              <ComplexReviewCard
+                image={review6}
+              />
+            </Grid>
+          </Grid>
         </SwiperSlide>
         <MKTypography
           variant="h2"
-          color="dark"
+          color="primary"
           sx={{
             ...navigationStyles,
             left: 0,
@@ -128,7 +141,7 @@ function Testimonials() {
         </MKTypography>
         <MKTypography
           variant="h2"
-          color="dark"
+          color="primary"
           sx={{
             ...navigationStyles,
             right: 0,

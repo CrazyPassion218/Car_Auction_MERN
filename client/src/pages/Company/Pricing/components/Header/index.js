@@ -83,7 +83,9 @@ function Header({ image, label, title, description, cards }) {
           mx: { xs: 2, lg: 3 },
           mt: -8,
           mb: 4,
+          backgrondColor: 'blue',
           boxShadow: ({ boxShadows: { xxl } }) => xxl,
+          border: '7px solid rgba(0, 0, 0, 1)'
         }}
       >
         <Grid container spacing={2}>

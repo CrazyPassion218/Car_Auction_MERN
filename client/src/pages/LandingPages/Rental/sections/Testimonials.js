@@ -52,14 +52,14 @@ function Testimonials() {
           sx={{ pt: 8, pb: 5, position: "relative", zIndex: 3 }}
         >
           <Grid item xs={12} md={6} sx={{ textAlign: "center" }}>
-            <MKBadge
+            {/* <MKBadge
               badgeContent="testimonials"
               variant="contained"
               color="white"
               size="sm"
               container
               sx={{ mb: 1 }}
-            />
+            /> */}
             <MKTypography variant="h2" color="white" mb={1}>
               Some thoughts from our clients
             </MKTypography>

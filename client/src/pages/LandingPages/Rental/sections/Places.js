@@ -96,24 +96,29 @@ const Places = () => {
 
   return (
     <>
-      <MKBox component="section" py={1}>
+      <MKBox component="section" py={1} >
         <Container>
           <Grid
             container
             item
             xs={8}
             flexDirection="column"
-            alignItems="center"
-            mx="auto"
+            // alignItems="left"
+            // mx="auto"
+            mt={12}
             textAlign="left"
             mb={6}
           >
-            <MKTypography variant="h3" mb={1}>
-              Auction
-            </MKTypography>
-            <MKButton variant="gradient" color="info" onClick={onClickCreate}>
-              Create my Auction
-            </MKButton>
+            {/* <Card> */}
+              <MKTypography variant="h1" color="black" mb={1} sx={{fontFamily: 'aria'}}>
+                Auctions 
+              </MKTypography>
+            {/* </Card> */}
+            <MKBox sx={{display: 'flex', justifyContent: 'right'}}>
+              <MKButton variant="gradient" color="info" onClick={onClickCreate} sx={{marginRight: '-600px'}}>
+                Create my Auction
+              </MKButton>
+            </MKBox>
           </Grid>
           <Grid container spacing={3} sx={{ mt: 3 }}>
           {
@@ -140,86 +145,47 @@ const Places = () => {
           </Grid>
         </Container>
       </MKBox>
-      {/* <MKBox component="section" py={1}>
+      <MKBox component="section" py={1}>
         <Container>
           <Grid
             container
             item
             xs={8}
             flexDirection="column"
-            alignItems="center"
-            mx="auto"
+            alignItems="left"
+            // mx="auto"
             textAlign="left"
             mb={6}
           >
-            <MKTypography variant="h4" mb={1}>
-              Fixed Price
+            <MKTypography variant="h1" color="black" mb={1} mt={12} sx={{fontFamily: 'aria'}}>
+              Vehicles in Fixed Price
             </MKTypography>
           </Grid>
-          <Grid container spacing={1} sx={{ mt: 3 }}>
-            <Grid item xs={12} md={6} lg={3}>
-              <MKBox mt={3}>
-                <VehicleCard
-                  image={vehicle1}
-                  title="MERCEDES-BENZ"
-                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  action={actionProps1}
-                />
-              </MKBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MKBox mt={3}>
-                <VehicleCard
-                  image={vehicle1}
-                  title="MERCEDES-BENZ"
-                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  action={actionProps1}
-                />
-              </MKBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MKBox mt={3}>
-                <VehicleCard
-                  image={vehicle1}
-                  title="MERCEDES-BENZ"
-                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  action={actionProps1}
-                />
-              </MKBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MKBox mt={3}>
-                <VehicleCard
-                  image={vehicle1}
-                  title="MERCEDES-BENZ"
-                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  action={actionProps1}
-                />
-              </MKBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MKBox mt={3}>
-                <VehicleCard
-                  image={vehicle1}
-                  title="MERCEDES-BENZ"
-                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  action={actionProps1}
-                />
-              </MKBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MKBox mt={3}>
-                <VehicleCard
-                  image={vehicle1}
-                  title="MERCEDES-BENZ"
-                  vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
-                  action={actionProps1}
-                />
-              </MKBox>
-            </Grid>
+          <Grid container spacing={3} sx={{ mt: 3 }}>
+          {
+            auctions.map((auction, index) => {
+              return (
+                <Grid item xs={12} md={6} lg={3} key={auction._id}>
+                  <MKBox mt={3}>
+                    <VehicleAuctionCard
+                      image={auction.image}
+                      auction={auction}
+                      now={nowTime}
+                      title={auction.itemName}
+                      vehicleInfo={{ miles: 15, fuel: "12/23", transmission: "Manual" }}
+                      timeData={{ timeStart: auction.bidStart, timeEnd: auction.bidEnd }}
+                      topBidPrice={auction.startingBid}
+                      allBidCount={auction.bids.length}
+                      action={actionProps}
+                    />
+                  </MKBox>
+                </Grid>
+              )
+            })
+          }
           </Grid>
         </Container>
-      </MKBox> */}
+      </MKBox>
     </>
   );
 };
