@@ -26,6 +26,8 @@ import MKTypography from "components/MKTypography";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
 import { create } from "api/user";
+import { signin } from "api/auth";
+import auth from "api/auth/auth-helper";
 // Authentication layout components
 import BasicLayout from "pages/Authentication/components/BasicLayout";
 import Dialog from "@material-ui/core/Dialog";
@@ -34,6 +36,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Icon from "@material-ui/core/Icon";
+import { useNavigate } from "react-router-dom";
 // Images
 import bgImage from "assets/images/car/car1.jpg";
 
@@ -46,7 +49,7 @@ function Cover() {
     error: "",
     policy: false,
   });
-
+  const navigate = useNavigate();
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
@@ -73,6 +76,22 @@ function Cover() {
       setValues({ ...values, error: 'You must follow our policy!' });
     }
   };
+
+  const onClickOKBtn = () => {
+    const user = {
+      email: values.email || undefined,
+      password: values.password || undefined,
+    }
+    signin(user).then((data) => {
+      auth.authenticate(data, () => {
+        localStorage.setItem('auth', JSON.stringify({...data, auth: true }));
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
+      })
+    })
+  }
+
   return (
     <BasicLayout image={bgImage}>
       <Card>
@@ -165,11 +184,9 @@ function Cover() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Link to="/authentication/sign-in/basic">
-            <MKButton color="primary" autoFocus="autoFocus" variant="contained">
-              Sign In
-            </MKButton>
-          </Link>
+          <MKButton color="primary" autoFocus="autoFocus" variant="contained" onClick={onClickOKBtn}>
+            Ok
+          </MKButton>
         </DialogActions>
       </Dialog>
     </BasicLayout>

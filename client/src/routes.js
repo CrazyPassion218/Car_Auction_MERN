@@ -99,12 +99,12 @@ const routes = [
     collapse: [
       {
         name: "AUCTION ROOM",
-        route: "/pages/AuctionPage/BidAuction/:auctionId",
+        route: "/pages/auctionPage/bidAuction/:auctionId",
         component: <BidAuctionPage />,
       },
       {
         name: "CREATE AUCTION",
-        route: "/pages/AuctionPage/CreateAuction",
+        route: "/pages/auctionPage/createAuction",
         component: <CreateAuctionPage />,
       },
     ]
