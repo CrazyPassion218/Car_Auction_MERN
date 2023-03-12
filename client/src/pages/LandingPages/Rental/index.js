@@ -17,7 +17,7 @@ Coded by www.creative-tim.com
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-
+import { useEffect, useState } from "react";
 // Material Kit 2 PRO React components
 import MKBox from "components/MKBox";
 
@@ -53,6 +53,28 @@ import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
 
 function Rental() {
+  const [hash, setHash] = useState(true);
+  const [onProgress, setOnProgress] = useState(0);
+  useEffect(() => {
+    console.log(onProgress);
+    let computeProgress = () => {
+      // The scrollTop gives length of window that has been scrolled
+      const scrolled = document.documentElement.scrollTop;
+      setOnProgress(scrolled);
+    }
+  
+    // Adding event listener on mounting
+    window.addEventListener("scroll", computeProgress);
+  
+    // Removing event listener upon unmounting
+    return () => window.removeEventListener("scroll", computeProgress);
+  });
+  useEffect(() => {
+    console.log(onProgress);
+    if(onProgress === 0)setHash(true);
+    else setHash(false);
+  }, [onProgress])
+  console.log(hash);
   const brand = 
   <MKBox
     component="img"
@@ -65,7 +87,7 @@ function Rental() {
   />
   return (
     <>
-      <MKBox position="fixed" top="0.5rem" width="100%" zIndex={5} sx={{backgroundColor: 'red'}}>
+      {/* <MKBox position="fixed" top="0.5rem" width="100%" zIndex={5}> */}
         <DefaultNavbar
           routes={routes}
           action={{
@@ -74,11 +96,14 @@ function Rental() {
             label: "sign in",
             color: "info",
           }}
-          transparent
+          transparent={hash}
+          // transparent
+          // primary
           light
+          sticky
           brand={brand}
         />
-      </MKBox>
+      {/* </MKBox> */}
       <Header />
       <MKBox
           sx={{
